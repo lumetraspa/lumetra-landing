@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="60"/>
+  <title>System Status — Lumetra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #F7F6F3;
+      --ink:   #0E0E0D;
+      --blue:  #4A6F96;
+      --muted: #9A9A96;
+      --faint: #EDECEA;
+      --card:  #FFFFFF;
+      --green: #3D7A56;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 72px 32px 48px;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 72px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .logo span { color: var(--blue); }
+
+    .nav-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* HERO */
+    .hero {
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .eyebrow {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .status-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      line-height: 1.05;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: rgba(61,122,86,0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.5); opacity: 0; }
+    }
+
+    .updated-at {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    /* CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--faint);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.15s ease forwards;
+    }
+
+    .status-row {
+      background: var(--card);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .row-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .row-dot.green  { background: var(--green); }
+    .row-dot.yellow { background: #8A6820; }
+    .row-dot.gray   { background: #C8C7C4; }
+
+    .row-label {
+      font-size: 0.83rem;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .row-value {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 300;
+      text-align: right;
+    }
+
+    .row-value.green  { color: var(--green); }
+    .row-value.strong {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    /* HISTORY */
+    .history-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s ease forwards;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.3s ease forwards;
+    }
+
+    .history-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--faint);
+    }
+
+    .history-row:last-child { border-bottom: none; }
+
+    .history-product {
+      font-size: 0.82rem;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .history-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    .history-date {
+      font-size: 0.7rem;
+      color: #C8C7C4;
+      font-weight: 300;
+      text-align: right;
+    }
+
+    .empty-state {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      padding: 8px 0;
+      font-weight: 300;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 32px;
+      border-top: 1px solid var(--faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p { font-size: 0.65rem; color: var(--muted); font-weight: 300; }
+    footer a { color: var(--blue); text-decoration: none; font-style: italic; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 48px 20px 32px; }
+      .status-headline { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="nav">
+    <a href="/" class="logo">Lumetra<span>.</span></a>
+    <span class="nav-tag">System Status</span>
+  </div>
+
+  <div class="hero">
+    <div class="eyebrow">Live status</div>
+    <div class="status-headline">
+      <div class="pulse-dot"></div>
+      All systems operational
+    </div>
+    <div class="updated-at" id="updated-at">Checking…</div>
+  </div>
+
+  <div class="cards">
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot green"></div>
+        <div class="row-label">Reorder bot</div>
+      </div>
+      <div class="row-value green">Running</div>
+    </div>
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot green"></div>
+        <div class="row-label">Inventory monitoring</div>
+      </div>
+      <div class="row-value green">Active</div>
+    </div>
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot green"></div>
+        <div class="row-label">Email delivery</div>
+      </div>
+      <div class="row-value green">Operational</div>
+    </div>
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot green"></div>
+        <div class="row-label">Dashboard</div>
+      </div>
+      <div class="row-value green">Online</div>
+    </div>
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot gray"></div>
+        <div class="row-label">Last reorder sent</div>
+      </div>
+      <div class="row-value strong" id="last-reorder">Loading…</div>
+    </div>
+    <div class="status-row">
+      <div class="row-left">
+        <div class="row-dot gray"></div>
+        <div class="row-label">Total orders placed</div>
+      </div>
+      <div class="row-value strong" id="total-orders">—</div>
+    </div>
+  </div>
+
+  <div class="history-label">Recent reorders</div>
+  <div class="history-list" id="history-list">
+    <div class="empty-state">Loading…</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Lumetra · Inventory OS</p>
+  <p><a href="mailto:hello@luminehq.com">hello@luminehq.com</a></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const { createClient } = supabase
+  const db = createClient(
+    'https://aoblhegfxzxcluzmpxhb.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmxoZWdmeHp4Y2x1em1weGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3MzgsImV4cCI6MjA4ODIyNzczOH0.L_KFazTSAoZf106in8CyRBfynuwoEKLfCpXaDhO-yw0'
+  )
+
+  function timeAgo(dateStr) {
+    const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000)
+    if (diff < 60)   return `${diff}s ago`
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
+    return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  }
+
+  async function loadStatus() {
+    // Updated at
+    document.getElementById('updated-at').textContent =
+      'Last updated: ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + ' · auto-refreshes every 60s'
+
+    // Total sent orders
+    const { count } = await db
+      .from('alerts')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'sent')
+
+    document.getElementById('total-orders').textContent = count ?? '0'
+
+    // Recent sent alerts
+    const { data: alerts } = await db
+      .from('alerts')
+      .select('sent_at, products(name), suppliers(name)')
+      .eq('status', 'sent')
+      .order('sent_at', { ascending: false })
+      .limit(5)
+
+    if (alerts && alerts.length > 0) {
+      // Last reorder
+      document.getElementById('last-reorder').textContent = timeAgo(alerts[0].sent_at)
+
+      // History list
+      document.getElementById('history-list').innerHTML = alerts.map((a, i) => `
+        <div class="history-row">
+          <div>
+            <div class="history-product">${a.products?.name || '—'}</div>
+            <div class="history-meta">${a.suppliers?.name || '—'}</div>
+          </div>
+          <div class="history-date">${timeAgo(a.sent_at)}</div>
+        </div>
+      `).join('')
+    } else {
+      document.getElementById('last-reorder').textContent = '—'
+      document.getElementById('history-list').innerHTML =
+        '<div class="empty-state">No reorders sent yet.</div>'
+    }
+  }
+
+  loadStatus()
+</script>
+
+</body>
+</html>
