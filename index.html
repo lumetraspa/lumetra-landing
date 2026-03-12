@@ -8,24 +8,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     :root {
-      --ink: #0E0E0C;
-      --blue: #5B7FA6;
-      --cream: #F8F8F6;
-      --muted: #ABABAB;
-      --border: #E4E4E0;
+      --bg:     #F7F6F3;
+      --ink:    #0E0E0D;
+      --ink2:   #3A3A38;
+      --blue:   #4A6F96;
+      --muted:  #9A9A96;
+      --faint:  #EDECEA;
+      --card:   #FFFFFF;
     }
- 
+
     html, body {
       height: 100%;
-      background: var(--cream);
+      background: var(--bg);
       color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
       cursor: default;
     }
- 
+
     body::before {
       content: '';
       position: fixed;
@@ -33,9 +35,9 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 100;
-      opacity: 0.4;
+      opacity: 0.35;
     }
- 
+
     .page {
       min-height: 100vh;
       display: grid;
@@ -44,35 +46,35 @@
       margin: 0 auto;
       padding: 0 48px;
     }
- 
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 36px 0 32px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--faint);
       opacity: 0;
       animation: fadeUp 0.8s ease forwards;
     }
- 
+
     .logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 1.1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.04em;
       color: var(--ink);
       text-decoration: none;
     }
- 
     .logo span { color: var(--blue); }
- 
+
     .nav-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
+      font-weight: 500;
     }
- 
+
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -80,23 +82,23 @@
       align-items: end;
       padding: 80px 0 72px;
     }
- 
+
     .hero-left {
       opacity: 0;
       animation: fadeUp 0.9s 0.15s ease forwards;
     }
- 
+
     .eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--blue);
       margin-bottom: 28px;
       display: flex;
       align-items: center;
       gap: 10px;
+      font-weight: 500;
     }
- 
     .eyebrow::before {
       content: '';
       display: inline-block;
@@ -104,388 +106,333 @@
       height: 1px;
       background: var(--blue);
     }
- 
+
     h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(3rem, 5.5vw, 5.2rem);
       line-height: 0.95;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       color: var(--ink);
       margin-bottom: 32px;
     }
- 
-    h1 em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--blue);
-    }
- 
+    h1 em { font-style: italic; font-weight: 400; color: var(--blue); }
+
     .hero-sub {
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--muted);
-      max-width: 360px;
+      max-width: 340px;
       font-weight: 300;
     }
- 
+
     .hero-right {
       padding-left: 80px;
       opacity: 0;
       animation: fadeUp 0.9s 0.3s ease forwards;
     }
- 
+
     .invite-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 36px;
     }
- 
+
     .invite-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 20px;
+      font-weight: 500;
     }
- 
+
     .invite-headline {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: var(--ink);
       line-height: 1.3;
       margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
- 
+
     .invite-sub {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.6;
       margin-bottom: 28px;
+      font-weight: 300;
     }
- 
-    .form-group { margin-bottom: 12px; }
- 
+
+    .form-group { margin-bottom: 10px; }
+
     .form-input {
       width: 100%;
-      padding: 14px 18px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--faint);
+      border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.83rem;
+      font-weight: 300;
       color: var(--ink);
-      background: var(--cream);
+      background: #FAFAF8;
       outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
- 
-    .form-input::placeholder { color: #CFCFCF; }
-    .form-input:focus { border-color: var(--blue); background: white; }
- 
+    .form-input::placeholder { color: #C8C7C4; }
+    .form-input:focus { border-color: var(--blue); background: var(--card); }
+
     .form-btn {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       background: var(--ink);
-      color: white;
+      color: var(--bg);
       border: none;
       border-radius: 100px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 400;
       font-style: italic;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
+      transition: opacity 0.15s, transform 0.1s;
       margin-top: 8px;
     }
- 
-    .form-btn:hover { background: var(--blue); }
+    .form-btn:hover { opacity: 0.8; }
     .form-btn:active { transform: scale(0.99); }
- 
+
     .form-note {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: var(--muted);
       text-align: center;
-      margin-top: 14px;
+      margin-top: 12px;
       line-height: 1.5;
+      font-weight: 300;
     }
- 
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      margin: 0;
-    }
- 
+
     .marquee-wrap {
       overflow: hidden;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      border-bottom: 1px solid var(--faint);
       opacity: 0;
       animation: fadeIn 1s 0.6s ease forwards;
     }
- 
+
     .marquee-track {
       display: flex;
       gap: 60px;
-      animation: marquee 22s linear infinite;
+      animation: marquee 24s linear infinite;
       width: max-content;
     }
- 
+
     .marquee-item {
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       white-space: nowrap;
       display: flex;
       align-items: center;
       gap: 60px;
+      font-weight: 400;
     }
- 
-    .marquee-item::after {
-      content: '✦';
-      color: var(--blue);
-      font-size: 0.5rem;
-    }
- 
+    .marquee-item::after { content: '✦'; color: var(--blue); font-size: 0.45rem; }
+
     @keyframes marquee {
       from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      to   { transform: translateX(-50%); }
     }
- 
-    /* ── ROI CALCULATOR ─────────────────────────────────────────── */
+
+    /* ROI */
     .roi-section {
-      padding: 72px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 80px 0;
+      border-bottom: 1px solid var(--faint);
       opacity: 0;
       animation: fadeUp 0.9s 0.5s ease forwards;
     }
- 
+
     .roi-eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--blue);
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 10px;
+      font-weight: 500;
     }
- 
-    .roi-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 1px;
-      background: var(--blue);
-    }
- 
+    .roi-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--blue); }
+
     .roi-headline {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(1.8rem, 3vw, 2.8rem);
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
       line-height: 1.05;
       color: var(--ink);
       margin-bottom: 12px;
     }
- 
-    .roi-headline em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--blue);
-    }
- 
+    .roi-headline em { font-style: italic; font-weight: 400; color: var(--blue); }
+
     .roi-sub {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
       font-weight: 300;
       margin-bottom: 48px;
-      max-width: 480px;
-      line-height: 1.6;
+      max-width: 460px;
+      line-height: 1.7;
     }
- 
-    .roi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: start;
-    }
- 
-    .roi-inputs {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
- 
+
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .roi-inputs { display: flex; flex-direction: column; gap: 22px; }
+
     .roi-field label {
       display: block;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      font-weight: 500;
     }
- 
-    .roi-slider-wrap {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
- 
+
+    .roi-slider-wrap { display: flex; align-items: center; gap: 16px; }
+
     .roi-slider {
       flex: 1;
       -webkit-appearance: none;
       appearance: none;
-      height: 3px;
+      height: 2px;
       border-radius: 99px;
-      background: var(--border);
+      background: var(--faint);
       outline: none;
       cursor: pointer;
     }
- 
     .roi-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 16px; height: 16px;
       border-radius: 50%;
       background: var(--ink);
       cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 0 0 1px var(--border);
-      transition: background 0.2s;
+      border: 2.5px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--faint);
+      transition: background 0.15s;
     }
- 
     .roi-slider::-webkit-slider-thumb:hover { background: var(--blue); }
- 
+
     .roi-val {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--ink);
       min-width: 52px;
       text-align: right;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
- 
+
     .roi-result {
       background: var(--ink);
-      border-radius: 20px;
-      padding: 40px 36px;
+      border-radius: 16px;
+      padding: 36px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       min-height: 300px;
     }
- 
+
     .roi-result-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.35);
       margin-bottom: 8px;
+      font-weight: 500;
     }
- 
+
     .roi-result-num {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(2.4rem, 4vw, 3.6rem);
-      color: white;
-      letter-spacing: -0.04em;
+      color: #F7F6F3;
+      letter-spacing: -0.05em;
       line-height: 1;
       margin-bottom: 6px;
     }
- 
-    .roi-result-num span { color: var(--blue); }
- 
+
     .roi-result-desc {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
       font-weight: 300;
-      line-height: 1.5;
+      line-height: 1.6;
       margin-bottom: 32px;
     }
- 
+
     .roi-breakdown {
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.08);
       padding-top: 20px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
- 
-    .roi-breakdown-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 0.75rem;
-    }
- 
-    .roi-breakdown-row .rbl { color: rgba(255,255,255,0.4); }
-    .roi-breakdown-row .rbv { color: white; font-weight: 500; }
- 
+
+    .roi-breakdown-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.72rem; }
+    .roi-breakdown-row .rbl { color: rgba(255,255,255,0.35); font-weight: 300; }
+    .roi-breakdown-row .rbv { color: #F7F6F3; font-weight: 400; }
+
     .roi-cta {
       margin-top: 24px;
       display: block;
       width: 100%;
-      padding: 14px;
-      background: white;
+      padding: 13px;
+      background: #F7F6F3;
       color: var(--ink);
       border: none;
       border-radius: 100px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.78rem;
+      font-weight: 400;
       font-style: italic;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       cursor: pointer;
       text-align: center;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      transition: opacity 0.15s;
     }
- 
-    .roi-cta:hover { background: var(--blue); color: white; }
-    /* ─────────────────────────────────────────────────────────── */
- 
+    .roi-cta:hover { opacity: 0.85; }
+
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--faint);
       opacity: 0;
       animation: fadeUp 0.9s 0.45s ease forwards;
     }
- 
-    .stat {
-      padding: 40px 0;
-      border-right: 1px solid var(--border);
-    }
- 
+
+    .stat { padding: 40px 0; border-right: 1px solid var(--faint); }
     .stat:last-child { border-right: none; padding-left: 40px; }
     .stat:nth-child(2) { padding-left: 40px; }
- 
+
     .stat-num {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 2.8rem;
       color: var(--ink);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       line-height: 1;
       margin-bottom: 8px;
     }
- 
     .stat-num span { color: var(--blue); }
- 
+
     .stat-label {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      font-weight: 400;
     }
- 
+
     footer {
       padding: 28px 0;
       display: flex;
@@ -494,77 +441,69 @@
       opacity: 0;
       animation: fadeIn 1s 0.7s ease forwards;
     }
- 
-    .footer-left { font-size: 0.72rem; color: var(--muted); }
-    .footer-right { font-size: 0.72rem; color: var(--muted); }
-    .footer-right a { color: var(--blue); text-decoration: none; }
- 
+
+    .footer-left { font-size: 0.68rem; color: var(--muted); font-weight: 300; }
+    .footer-right { font-size: 0.68rem; color: var(--muted); }
+    .footer-right a { color: var(--blue); text-decoration: none; font-style: italic; }
+
     .success-msg { display: none; text-align: center; padding: 20px 0; }
     .success-msg.show { display: block; }
-    .success-icon { font-size: 1.4rem; margin-bottom: 10px; }
-    .success-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 4px; }
-    .success-sub { font-size: 0.75rem; color: var(--muted); }
- 
+    .success-icon { font-size: 1.2rem; margin-bottom: 10px; }
+    .success-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.02em; }
+    .success-sub { font-size: 0.72rem; color: var(--muted); font-weight: 300; }
+
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
- 
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
- 
+
     @media (max-width: 768px) {
       .page { padding: 0 24px; }
       .hero { grid-template-columns: 1fr; gap: 48px; }
       .hero-right { padding-left: 0; }
       h1 { font-size: 3rem; }
       .stats { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 0; }
+      .stat { border-right: none; border-bottom: 1px solid var(--faint); padding: 28px 0; }
       .stat:last-child { padding-left: 0; }
       .stat:nth-child(2) { padding-left: 0; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
       .roi-grid { grid-template-columns: 1fr; }
-      .hero-right { padding-left: 0; }
     }
   </style>
 </head>
 <body>
   <div class="page">
- 
+
     <nav>
       <a class="logo" href="#">Lumetra<span>.</span></a>
       <span class="nav-tag">Owner's Eyes Only</span>
     </nav>
- 
+
     <div class="hero">
       <div class="hero-left">
         <div class="eyebrow">Invite Only</div>
         <h1>Your front<br/>desk isn't<br/>your <em>bottleneck.</em><br/>Your software is.</h1>
         <p class="hero-sub">Lumetra automates inventory for medical spas — so you stop losing money to stockouts, manual reorders, and supplier chaos.</p>
       </div>
- 
+
       <div class="hero-right">
         <div class="invite-card">
           <div class="invite-label">Request early access</div>
           <div class="invite-headline">Built for MedSpa owners who want to stop leaving money on the table.</div>
           <div class="invite-sub">We're onboarding our first 25 owners personally. No demos. No sales calls. Just results.</div>
- 
+
           <div id="form-wrap">
-            <div class="form-group">
-              <input class="form-input" type="text" id="name" placeholder="Your name" />
-            </div>
-            <div class="form-group">
-              <input class="form-input" type="email" id="email" placeholder="Owner email" />
-            </div>
-            <div class="form-group">
-              <input class="form-input" type="text" id="spa" placeholder="MedSpa name" />
-            </div>
+            <div class="form-group"><input class="form-input" type="text" id="name" placeholder="Your name" /></div>
+            <div class="form-group"><input class="form-input" type="email" id="email" placeholder="Owner email" /></div>
+            <div class="form-group"><input class="form-input" type="text" id="spa" placeholder="MedSpa name" /></div>
             <button class="form-btn" onclick="handleSubmit()">request an invite →</button>
             <div class="form-note">Founding Member access · Limited to 25 owners · Reviewed personally</div>
           </div>
- 
+
           <div class="success-msg" id="success">
             <div class="success-icon">✦</div>
             <div class="success-text">You're on the list.</div>
@@ -573,8 +512,7 @@
         </div>
       </div>
     </div>
- 
-    <!-- MARQUEE -->
+
     <div class="marquee-wrap">
       <div class="marquee-track">
         <span class="marquee-item">Automated reorders</span>
@@ -591,16 +529,14 @@
         <span class="marquee-item">Built for MedSpas</span>
       </div>
     </div>
- 
-    <!-- ROI CALCULATOR -->
+
     <div class="roi-section">
       <div class="roi-eyebrow">ROI Calculator</div>
       <div class="roi-headline">See what stockouts are<br/><em>actually costing you.</em></div>
       <div class="roi-sub">Adjust the sliders to match your practice. Most owners are surprised by the number on the right.</div>
- 
+
       <div class="roi-grid">
         <div class="roi-inputs">
- 
           <div class="roi-field">
             <label>Products tracked</label>
             <div class="roi-slider-wrap">
@@ -608,7 +544,6 @@
               <span class="roi-val" id="v-products">50</span>
             </div>
           </div>
- 
           <div class="roi-field">
             <label>Avg product cost ($)</label>
             <div class="roi-slider-wrap">
@@ -616,7 +551,6 @@
               <span class="roi-val" id="v-cost">$250</span>
             </div>
           </div>
- 
           <div class="roi-field">
             <label>Stockouts per month</label>
             <div class="roi-slider-wrap">
@@ -624,7 +558,6 @@
               <span class="roi-val" id="v-stockouts">4</span>
             </div>
           </div>
- 
           <div class="roi-field">
             <label>Hours spent on manual reorders / week</label>
             <div class="roi-slider-wrap">
@@ -632,7 +565,6 @@
               <span class="roi-val" id="v-hours">3 hrs</span>
             </div>
           </div>
- 
           <div class="roi-field">
             <label>Your hourly value ($)</label>
             <div class="roi-slider-wrap">
@@ -640,16 +572,14 @@
               <span class="roi-val" id="v-rate">$150</span>
             </div>
           </div>
- 
         </div>
- 
+
         <div class="roi-result">
           <div>
             <div class="roi-result-label">Estimated annual loss</div>
-            <div class="roi-result-num" id="roi-total">$<span id="roi-num">18,600</span></div>
-            <div class="roi-result-desc" id="roi-desc">lost each year to stockouts and manual inventory work</div>
+            <div class="roi-result-num">$<span id="roi-num">18,600</span></div>
+            <div class="roi-result-desc">lost each year to stockouts and manual inventory work</div>
           </div>
- 
           <div>
             <div class="roi-breakdown">
               <div class="roi-breakdown-row">
@@ -662,11 +592,11 @@
               </div>
               <div class="roi-breakdown-row">
                 <span class="rbl">Lumetra cost / yr</span>
-                <span class="rbv" id="rb-lumetra" style="color: #5B7FA6;">$1,188</span>
+                <span class="rbv" id="rb-lumetra" style="color:#4A6F96;">$1,188</span>
               </div>
-              <div class="roi-breakdown-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 2px;">
-                <span class="rbl" style="color:rgba(255,255,255,0.7); font-weight:500;">Net savings / yr</span>
-                <span class="rbv" id="rb-net" style="color: #5BAA78; font-size: 0.88rem;">$34,212</span>
+              <div class="roi-breakdown-row" style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px;">
+                <span class="rbl" style="color:rgba(255,255,255,0.6);font-weight:400;">Net savings / yr</span>
+                <span class="rbv" id="rb-net" style="color:#5BAA78;font-size:0.88rem;">$34,212</span>
               </div>
             </div>
             <a href="#form-wrap" class="roi-cta" onclick="document.getElementById('name').focus()">claim your founding rate →</a>
@@ -674,8 +604,7 @@
         </div>
       </div>
     </div>
- 
-    <!-- STATS -->
+
     <div class="stats">
       <div class="stat">
         <div class="stat-num">$18<span>k+</span></div>
@@ -690,14 +619,14 @@
         <div class="stat-label">stockouts across all active clients</div>
       </div>
     </div>
- 
+
     <footer>
       <span class="footer-left">© 2026 Lumetra · Inventory OS for Medical Spas</span>
       <span class="footer-right"><a href="mailto:hello@luminehq.com">hello@luminehq.com</a></span>
     </footer>
- 
+
   </div>
- 
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const { createClient } = supabase
@@ -705,23 +634,16 @@
       'https://aoblhegfxzxcluzmpxhb.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmxoZWdmeHp4Y2x1em1weGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3MzgsImV4cCI6MjA4ODIyNzczOH0.L_KFazTSAoZf106in8CyRBfynuwoEKLfCpXaDhO-yw0'
     )
- 
+
     async function handleSubmit() {
       const name  = document.getElementById('name').value.trim()
       const email = document.getElementById('email').value.trim()
       const spa   = document.getElementById('spa').value.trim()
- 
-      if (!name || !email || !spa) {
-        alert('Please fill in all fields.')
-        return
-      }
- 
+      if (!name || !email || !spa) { alert('Please fill in all fields.'); return }
       const btn = document.querySelector('.form-btn')
       btn.textContent = 'submitting…'
       btn.disabled = true
- 
       const { error } = await db.from('waitlist').insert({ name, email, spa_name: spa })
- 
       if (error) {
         if (error.code === '23505') {
           document.getElementById('form-wrap').style.display = 'none'
@@ -734,44 +656,33 @@
         }
         return
       }
- 
       document.getElementById('form-wrap').style.display = 'none'
       document.getElementById('success').classList.add('show')
     }
- 
-    // ── ROI CALCULATOR ──────────────────────────────────────────
+
     function calcROI() {
       const products  = parseInt(document.getElementById('s-products').value)
       const cost      = parseInt(document.getElementById('s-cost').value)
       const stockouts = parseInt(document.getElementById('s-stockouts').value)
       const hours     = parseInt(document.getElementById('s-hours').value)
       const rate      = parseInt(document.getElementById('s-rate').value)
- 
-      // Update display values
-      document.getElementById('v-products').textContent = products
-      document.getElementById('v-cost').textContent     = '$' + cost.toLocaleString()
+      document.getElementById('v-products').textContent  = products
+      document.getElementById('v-cost').textContent      = '$' + cost.toLocaleString()
       document.getElementById('v-stockouts').textContent = stockouts
-      document.getElementById('v-hours').textContent    = hours + ' hrs'
-      document.getElementById('v-rate').textContent     = '$' + rate
- 
-      // Calculations
-      const stockoutLoss  = stockouts * cost * 12           // monthly stockouts × product cost × 12 months
-      const timeLoss      = hours * rate * 52               // hours/week × hourly rate × 52 weeks
-      const lumetraCost   = 99 * 12                         // founding plan × 12 months
-      const totalLoss     = stockoutLoss + timeLoss
-      const netSavings    = totalLoss - lumetraCost
- 
-      // Update result card
+      document.getElementById('v-hours').textContent     = hours + ' hrs'
+      document.getElementById('v-rate').textContent      = '$' + rate
+      const stockoutLoss = stockouts * cost * 12
+      const timeLoss     = hours * rate * 52
+      const lumetraCost  = 99 * 12
+      const totalLoss    = stockoutLoss + timeLoss
+      const netSavings   = totalLoss - lumetraCost
       document.getElementById('roi-num').textContent     = totalLoss.toLocaleString()
       document.getElementById('rb-stockout').textContent = '$' + stockoutLoss.toLocaleString()
       document.getElementById('rb-time').textContent     = '$' + timeLoss.toLocaleString()
       document.getElementById('rb-net').textContent      = '$' + Math.max(0, netSavings).toLocaleString()
     }
- 
-    // Run once on load to set initial values
+
     calcROI()
-    // ────────────────────────────────────────────────────────────
   </script>
 </body>
 </html>
- 
