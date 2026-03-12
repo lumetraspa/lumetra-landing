@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplier Information — Lumetra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8F8F6;
+      --white: #ffffff;
+      --blue: #5B7FA6;
+      --text: #111111;
+      --muted: #ABABAB;
+      --subtle: #CFCFCF;
+      --border: #E8E8E4;
+      --green: #5BAA78;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .hero-eyebrow .line {
+      width: 32px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .hero-eyebrow span {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 54px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    /* Blue italic uses DM Sans, not Syne */
+    h1 em {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--blue);
+    }
+
+    .hero-body {
+      font-size: 16px;
+      font-weight: 300;
+      color: #555;
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .steps-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .step:last-child { border-bottom: 1px solid var(--border); }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--subtle);
+      min-width: 24px;
+      padding-top: 3px;
+    }
+
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* RIGHT CARD */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      position: sticky;
+      top: 40px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .card > p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+
+    .email-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .email-label {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 400;
+    }
+
+    .email-addr {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .verified-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* SAMPLE ORDER BLOCK */
+    .order-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+
+    .order-preview .order-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .order-row:last-child { border-bottom: none; }
+
+    .order-row .key {
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .order-row .val {
+      font-weight: 400;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .order-row .val.highlight {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* CHECKLIST */
+    .checklist {
+      list-style: none;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: #444;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .check {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #eef4ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .check svg { width: 9px; height: 9px; }
+
+    .btn {
+      display: block;
+      background: var(--text);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .btn:hover { opacity: 0.75; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p { font-size: 12px; color: var(--muted); font-weight: 300; }
+
+    @media (max-width: 800px) {
+      .page { grid-template-columns: 1fr; padding: 48px 24px; gap: 48px; }
+      nav { padding: 20px 24px; }
+      footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+      .card { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="https://luminehq.com" class="logo">Lumetra.</a>
+    <span class="nav-label">Supplier Information</span>
+  </nav>
+
+  <div class="page">
+
+    <div class="left">
+      <div class="hero-eyebrow">
+        <div class="line"></div>
+        <span>For Suppliers & Distributors</span>
+      </div>
+
+      <h1>You received an order from a <em>Lumetra client.</em></h1>
+
+      <p class="hero-body">Lumetra is an inventory management platform built for medical spas. When a medspa's stock drops below a set threshold, Lumetra automatically sends a reorder request on behalf of the practice owner. The email you received is a legitimate purchase order — configured and approved by your client.</p>
+
+      <p class="steps-label">How it works</p>
+
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <h3>The owner configured the order</h3>
+          <p>Your client set their own reorder thresholds and quantities inside Lumetra. Nothing is sent without their prior setup and approval.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <h3>The email contains all order details</h3>
+          <p>Each reorder email includes the exact product name, quantity requested, current stock level, medspa name, and owner contact info. Process it as you would any manual PO.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <h3>Replies go directly to the owner</h3>
+          <p>If you need to confirm or follow up, simply reply. Your response goes straight to the medspa owner — not to Lumetra.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div>
+          <h3>Questions about the order?</h3>
+          <p>Contact the medspa owner using the info in the original email. They handle all order decisions, quantities, and delivery details.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Verify This Email</div>
+      <h2>This order is legitimate.</h2>
+      <p>All Lumetra reorder emails are sent from our verified domain. Every order includes the exact product and quantity your client needs.</p>
+
+      <div class="email-box">
+        <div>
+          <div class="email-label">Sender address</div>
+          <div class="email-addr">hello@luminehq.com</div>
+        </div>
+        <div class="verified-dot"></div>
+      </div>
+
+      <!-- SAMPLE ORDER DETAILS -->
+      <div class="order-preview">
+        <div class="order-label">Example order contents</div>
+        <div class="order-row">
+          <span class="key">Product</span>
+          <span class="val highlight">Botox Cosmetic 100u</span>
+        </div>
+        <div class="order-row">
+          <span class="key">Quantity requested</span>
+          <span class="val highlight">5 vials</span>
+        </div>
+        <div class="order-row">
+          <span class="key">Current stock</span>
+          <span class="val">2 vials remaining</span>
+        </div>
+        <div class="order-row">
+          <span class="key">Ordered by</span>
+          <span class="val">Glow Medspa — Sarah M.</span>
+        </div>
+        <div class="order-row">
+          <span class="key">Owner email</span>
+          <span class="val">sarah@glowmedspa.com</span>
+        </div>
+      </div>
+
+      <ul class="checklist">
+        <li>
+          <div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5BAA78" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Sent from hello@luminehq.com — verified domain
+        </li>
+        <li>
+          <div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5BAA78" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Exact product name and quantity in every order
+        </li>
+        <li>
+          <div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5BAA78" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Owner name, email, and phone included
+        </li>
+        <li>
+          <div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5BAA78" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Reply-to goes directly to the medspa owner
+        </li>
+        <li>
+          <div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5BAA78" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Owner is CC'd on every automated order
+        </li>
+      </ul>
+
+      <a href="mailto:hello@luminehq.com" class="btn">Email Lumetra</a>
+      <a href="https://luminehq.com" class="btn btn-ghost">Visit luminehq.com</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <a href="https://luminehq.com" class="logo">Lumetra.</a>
+    <p>© 2026 Lumetra. Automated inventory for medical spas.</p>
+  </footer>
+
+</body>
+</html>
