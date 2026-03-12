@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --ink: #0E0E0C;
       --blue: #5B7FA6;
@@ -16,7 +16,7 @@
       --muted: #ABABAB;
       --border: #E4E4E0;
     }
-
+ 
     html, body {
       height: 100%;
       background: var(--cream);
@@ -25,8 +25,7 @@
       -webkit-font-smoothing: antialiased;
       cursor: default;
     }
-
-    /* Grain overlay */
+ 
     body::before {
       content: '';
       position: fixed;
@@ -36,7 +35,7 @@
       z-index: 100;
       opacity: 0.4;
     }
-
+ 
     .page {
       min-height: 100vh;
       display: grid;
@@ -45,8 +44,7 @@
       margin: 0 auto;
       padding: 0 48px;
     }
-
-    /* NAV */
+ 
     nav {
       display: flex;
       justify-content: space-between;
@@ -56,7 +54,7 @@
       opacity: 0;
       animation: fadeUp 0.8s ease forwards;
     }
-
+ 
     .logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -65,17 +63,16 @@
       color: var(--ink);
       text-decoration: none;
     }
-
+ 
     .logo span { color: var(--blue); }
-
+ 
     .nav-tag {
       font-size: 0.65rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
-
-    /* HERO */
+ 
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -83,12 +80,12 @@
       align-items: end;
       padding: 80px 0 72px;
     }
-
+ 
     .hero-left {
       opacity: 0;
       animation: fadeUp 0.9s 0.15s ease forwards;
     }
-
+ 
     .eyebrow {
       font-size: 0.65rem;
       letter-spacing: 0.18em;
@@ -99,7 +96,7 @@
       align-items: center;
       gap: 10px;
     }
-
+ 
     .eyebrow::before {
       content: '';
       display: inline-block;
@@ -107,7 +104,7 @@
       height: 1px;
       background: var(--blue);
     }
-
+ 
     h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -117,13 +114,13 @@
       color: var(--ink);
       margin-bottom: 32px;
     }
-
+ 
     h1 em {
       font-style: italic;
       font-weight: 400;
       color: var(--blue);
     }
-
+ 
     .hero-sub {
       font-size: 1rem;
       line-height: 1.6;
@@ -131,21 +128,20 @@
       max-width: 360px;
       font-weight: 300;
     }
-
-    /* RIGHT COLUMN */
+ 
     .hero-right {
       padding-left: 80px;
       opacity: 0;
       animation: fadeUp 0.9s 0.3s ease forwards;
     }
-
+ 
     .invite-card {
       background: white;
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 40px;
     }
-
+ 
     .invite-label {
       font-size: 0.65rem;
       letter-spacing: 0.14em;
@@ -153,7 +149,7 @@
       color: var(--muted);
       margin-bottom: 20px;
     }
-
+ 
     .invite-headline {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -163,18 +159,16 @@
       margin-bottom: 8px;
       letter-spacing: -0.02em;
     }
-
+ 
     .invite-sub {
       font-size: 0.8rem;
       color: var(--muted);
       line-height: 1.5;
       margin-bottom: 28px;
     }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-
+ 
+    .form-group { margin-bottom: 12px; }
+ 
     .form-input {
       width: 100%;
       padding: 14px 18px;
@@ -187,10 +181,10 @@
       outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
-
+ 
     .form-input::placeholder { color: #CFCFCF; }
     .form-input:focus { border-color: var(--blue); background: white; }
-
+ 
     .form-btn {
       width: 100%;
       padding: 15px;
@@ -207,10 +201,10 @@
       transition: background 0.2s, transform 0.1s;
       margin-top: 8px;
     }
-
+ 
     .form-btn:hover { background: var(--blue); }
     .form-btn:active { transform: scale(0.99); }
-
+ 
     .form-note {
       font-size: 0.68rem;
       color: var(--muted);
@@ -218,16 +212,14 @@
       margin-top: 14px;
       line-height: 1.5;
     }
-
-    /* DIVIDER LINE */
+ 
     .divider {
       width: 100%;
       height: 1px;
       background: var(--border);
       margin: 0;
     }
-
-    /* MARQUEE */
+ 
     .marquee-wrap {
       overflow: hidden;
       padding: 20px 0;
@@ -235,14 +227,14 @@
       opacity: 0;
       animation: fadeIn 1s 0.6s ease forwards;
     }
-
+ 
     .marquee-track {
       display: flex;
       gap: 60px;
       animation: marquee 22s linear infinite;
       width: max-content;
     }
-
+ 
     .marquee-item {
       font-size: 0.68rem;
       letter-spacing: 0.18em;
@@ -253,19 +245,212 @@
       align-items: center;
       gap: 60px;
     }
-
+ 
     .marquee-item::after {
       content: '✦';
       color: var(--blue);
       font-size: 0.5rem;
     }
-
+ 
     @keyframes marquee {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
-
-    /* STATS ROW */
+ 
+    /* ── ROI CALCULATOR ─────────────────────────────────────────── */
+    .roi-section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s ease forwards;
+    }
+ 
+    .roi-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+ 
+    .roi-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--blue);
+    }
+ 
+    .roi-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+ 
+    .roi-headline em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--blue);
+    }
+ 
+    .roi-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 48px;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+ 
+    .roi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+ 
+    .roi-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+ 
+    .roi-field label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+ 
+    .roi-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+ 
+    .roi-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+ 
+    .roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--ink);
+      cursor: pointer;
+      border: 3px solid white;
+      box-shadow: 0 0 0 1px var(--border);
+      transition: background 0.2s;
+    }
+ 
+    .roi-slider::-webkit-slider-thumb:hover { background: var(--blue); }
+ 
+    .roi-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ink);
+      min-width: 52px;
+      text-align: right;
+      letter-spacing: -0.02em;
+    }
+ 
+    .roi-result {
+      background: var(--ink);
+      border-radius: 20px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 300px;
+    }
+ 
+    .roi-result-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+ 
+    .roi-result-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      color: white;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+ 
+    .roi-result-num span { color: var(--blue); }
+ 
+    .roi-result-desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 300;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+ 
+    .roi-breakdown {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+ 
+    .roi-breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.75rem;
+    }
+ 
+    .roi-breakdown-row .rbl { color: rgba(255,255,255,0.4); }
+    .roi-breakdown-row .rbv { color: white; font-weight: 500; }
+ 
+    .roi-cta {
+      margin-top: 24px;
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: white;
+      color: var(--ink);
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+ 
+    .roi-cta:hover { background: var(--blue); color: white; }
+    /* ─────────────────────────────────────────────────────────── */
+ 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -273,15 +458,15 @@
       opacity: 0;
       animation: fadeUp 0.9s 0.45s ease forwards;
     }
-
+ 
     .stat {
       padding: 40px 0;
       border-right: 1px solid var(--border);
     }
-
+ 
     .stat:last-child { border-right: none; padding-left: 40px; }
     .stat:nth-child(2) { padding-left: 40px; }
-
+ 
     .stat-num {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -291,17 +476,16 @@
       line-height: 1;
       margin-bottom: 8px;
     }
-
+ 
     .stat-num span { color: var(--blue); }
-
+ 
     .stat-label {
       font-size: 0.72rem;
       color: var(--muted);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-
-    /* FOOTER */
+ 
     footer {
       padding: 28px 0;
       display: flex;
@@ -310,61 +494,27 @@
       opacity: 0;
       animation: fadeIn 1s 0.7s ease forwards;
     }
-
-    .footer-left {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .footer-right {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .footer-right a {
-      color: var(--blue);
-      text-decoration: none;
-    }
-
-    /* SUCCESS STATE */
-    .success-msg {
-      display: none;
-      text-align: center;
-      padding: 20px 0;
-    }
-
+ 
+    .footer-left { font-size: 0.72rem; color: var(--muted); }
+    .footer-right { font-size: 0.72rem; color: var(--muted); }
+    .footer-right a { color: var(--blue); text-decoration: none; }
+ 
+    .success-msg { display: none; text-align: center; padding: 20px 0; }
     .success-msg.show { display: block; }
-
-    .success-icon {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-
-    .success-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .success-sub {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    /* ANIMATIONS */
+    .success-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .success-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 4px; }
+    .success-sub { font-size: 0.75rem; color: var(--muted); }
+ 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
+ 
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
-
-    /* MOBILE */
+ 
     @media (max-width: 768px) {
       .page { padding: 0 24px; }
       .hero { grid-template-columns: 1fr; gap: 48px; }
@@ -375,32 +525,32 @@
       .stat:last-child { padding-left: 0; }
       .stat:nth-child(2) { padding-left: 0; }
       footer { flex-direction: column; gap: 8px; text-align: center; }
+      .roi-grid { grid-template-columns: 1fr; }
+      .hero-right { padding-left: 0; }
     }
   </style>
 </head>
 <body>
   <div class="page">
-
-    <!-- NAV -->
+ 
     <nav>
       <a class="logo" href="#">Lumetra<span>.</span></a>
       <span class="nav-tag">Owner's Eyes Only</span>
     </nav>
-
-    <!-- HERO -->
+ 
     <div class="hero">
       <div class="hero-left">
         <div class="eyebrow">Invite Only</div>
         <h1>Your front<br/>desk isn't<br/>your <em>bottleneck.</em><br/>Your software is.</h1>
         <p class="hero-sub">Lumetra automates inventory for medical spas — so you stop losing money to stockouts, manual reorders, and supplier chaos.</p>
       </div>
-
+ 
       <div class="hero-right">
         <div class="invite-card">
           <div class="invite-label">Request early access</div>
           <div class="invite-headline">Built for MedSpa owners who want to stop leaving money on the table.</div>
           <div class="invite-sub">We're onboarding our first 25 owners personally. No demos. No sales calls. Just results.</div>
-
+ 
           <div id="form-wrap">
             <div class="form-group">
               <input class="form-input" type="text" id="name" placeholder="Your name" />
@@ -414,7 +564,7 @@
             <button class="form-btn" onclick="handleSubmit()">request an invite →</button>
             <div class="form-note">Founding Member access · Limited to 25 owners · Reviewed personally</div>
           </div>
-
+ 
           <div class="success-msg" id="success">
             <div class="success-icon">✦</div>
             <div class="success-text">You're on the list.</div>
@@ -423,7 +573,7 @@
         </div>
       </div>
     </div>
-
+ 
     <!-- MARQUEE -->
     <div class="marquee-wrap">
       <div class="marquee-track">
@@ -441,7 +591,90 @@
         <span class="marquee-item">Built for MedSpas</span>
       </div>
     </div>
-
+ 
+    <!-- ROI CALCULATOR -->
+    <div class="roi-section">
+      <div class="roi-eyebrow">ROI Calculator</div>
+      <div class="roi-headline">See what stockouts are<br/><em>actually costing you.</em></div>
+      <div class="roi-sub">Adjust the sliders to match your practice. Most owners are surprised by the number on the right.</div>
+ 
+      <div class="roi-grid">
+        <div class="roi-inputs">
+ 
+          <div class="roi-field">
+            <label>Products tracked</label>
+            <div class="roi-slider-wrap">
+              <input type="range" class="roi-slider" id="s-products" min="10" max="200" value="50" oninput="calcROI()"/>
+              <span class="roi-val" id="v-products">50</span>
+            </div>
+          </div>
+ 
+          <div class="roi-field">
+            <label>Avg product cost ($)</label>
+            <div class="roi-slider-wrap">
+              <input type="range" class="roi-slider" id="s-cost" min="50" max="1000" value="250" step="10" oninput="calcROI()"/>
+              <span class="roi-val" id="v-cost">$250</span>
+            </div>
+          </div>
+ 
+          <div class="roi-field">
+            <label>Stockouts per month</label>
+            <div class="roi-slider-wrap">
+              <input type="range" class="roi-slider" id="s-stockouts" min="1" max="20" value="4" oninput="calcROI()"/>
+              <span class="roi-val" id="v-stockouts">4</span>
+            </div>
+          </div>
+ 
+          <div class="roi-field">
+            <label>Hours spent on manual reorders / week</label>
+            <div class="roi-slider-wrap">
+              <input type="range" class="roi-slider" id="s-hours" min="1" max="20" value="3" oninput="calcROI()"/>
+              <span class="roi-val" id="v-hours">3 hrs</span>
+            </div>
+          </div>
+ 
+          <div class="roi-field">
+            <label>Your hourly value ($)</label>
+            <div class="roi-slider-wrap">
+              <input type="range" class="roi-slider" id="s-rate" min="50" max="500" value="150" step="10" oninput="calcROI()"/>
+              <span class="roi-val" id="v-rate">$150</span>
+            </div>
+          </div>
+ 
+        </div>
+ 
+        <div class="roi-result">
+          <div>
+            <div class="roi-result-label">Estimated annual loss</div>
+            <div class="roi-result-num" id="roi-total">$<span id="roi-num">18,600</span></div>
+            <div class="roi-result-desc" id="roi-desc">lost each year to stockouts and manual inventory work</div>
+          </div>
+ 
+          <div>
+            <div class="roi-breakdown">
+              <div class="roi-breakdown-row">
+                <span class="rbl">Stockout losses / yr</span>
+                <span class="rbv" id="rb-stockout">$12,000</span>
+              </div>
+              <div class="roi-breakdown-row">
+                <span class="rbl">Time lost / yr</span>
+                <span class="rbv" id="rb-time">$23,400</span>
+              </div>
+              <div class="roi-breakdown-row">
+                <span class="rbl">Lumetra cost / yr</span>
+                <span class="rbv" id="rb-lumetra" style="color: #5B7FA6;">$1,188</span>
+              </div>
+              <div class="roi-breakdown-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 2px;">
+                <span class="rbl" style="color:rgba(255,255,255,0.7); font-weight:500;">Net savings / yr</span>
+                <span class="rbv" id="rb-net" style="color: #5BAA78; font-size: 0.88rem;">$34,212</span>
+              </div>
+            </div>
+            <a href="#form-wrap" class="roi-cta" onclick="document.getElementById('name').focus()">claim your founding rate →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
     <!-- STATS -->
     <div class="stats">
       <div class="stat">
@@ -457,15 +690,14 @@
         <div class="stat-label">stockouts across all active clients</div>
       </div>
     </div>
-
-    <!-- FOOTER -->
+ 
     <footer>
       <span class="footer-left">© 2026 Lumetra · Inventory OS for Medical Spas</span>
       <span class="footer-right"><a href="mailto:hello@luminehq.com">hello@luminehq.com</a></span>
     </footer>
-
+ 
   </div>
-
+ 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const { createClient } = supabase
@@ -473,23 +705,23 @@
       'https://aoblhegfxzxcluzmpxhb.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmxoZWdmeHp4Y2x1em1weGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3MzgsImV4cCI6MjA4ODIyNzczOH0.L_KFazTSAoZf106in8CyRBfynuwoEKLfCpXaDhO-yw0'
     )
-
+ 
     async function handleSubmit() {
       const name  = document.getElementById('name').value.trim()
       const email = document.getElementById('email').value.trim()
       const spa   = document.getElementById('spa').value.trim()
-
+ 
       if (!name || !email || !spa) {
         alert('Please fill in all fields.')
         return
       }
-
+ 
       const btn = document.querySelector('.form-btn')
       btn.textContent = 'submitting…'
       btn.disabled = true
-
+ 
       const { error } = await db.from('waitlist').insert({ name, email, spa_name: spa })
-
+ 
       if (error) {
         if (error.code === '23505') {
           document.getElementById('form-wrap').style.display = 'none'
@@ -502,10 +734,44 @@
         }
         return
       }
-
+ 
       document.getElementById('form-wrap').style.display = 'none'
       document.getElementById('success').classList.add('show')
     }
+ 
+    // ── ROI CALCULATOR ──────────────────────────────────────────
+    function calcROI() {
+      const products  = parseInt(document.getElementById('s-products').value)
+      const cost      = parseInt(document.getElementById('s-cost').value)
+      const stockouts = parseInt(document.getElementById('s-stockouts').value)
+      const hours     = parseInt(document.getElementById('s-hours').value)
+      const rate      = parseInt(document.getElementById('s-rate').value)
+ 
+      // Update display values
+      document.getElementById('v-products').textContent = products
+      document.getElementById('v-cost').textContent     = '$' + cost.toLocaleString()
+      document.getElementById('v-stockouts').textContent = stockouts
+      document.getElementById('v-hours').textContent    = hours + ' hrs'
+      document.getElementById('v-rate').textContent     = '$' + rate
+ 
+      // Calculations
+      const stockoutLoss  = stockouts * cost * 12           // monthly stockouts × product cost × 12 months
+      const timeLoss      = hours * rate * 52               // hours/week × hourly rate × 52 weeks
+      const lumetraCost   = 99 * 12                         // founding plan × 12 months
+      const totalLoss     = stockoutLoss + timeLoss
+      const netSavings    = totalLoss - lumetraCost
+ 
+      // Update result card
+      document.getElementById('roi-num').textContent     = totalLoss.toLocaleString()
+      document.getElementById('rb-stockout').textContent = '$' + stockoutLoss.toLocaleString()
+      document.getElementById('rb-time').textContent     = '$' + timeLoss.toLocaleString()
+      document.getElementById('rb-net').textContent      = '$' + Math.max(0, netSavings).toLocaleString()
+    }
+ 
+    // Run once on load to set initial values
+    calcROI()
+    // ────────────────────────────────────────────────────────────
   </script>
 </body>
 </html>
+ 
