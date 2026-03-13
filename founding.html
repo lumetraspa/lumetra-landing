@@ -10,12 +10,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #F8F8F6;
-  --ink: #111111;
-  --blue: #5B7FA6;
-  --muted: #ABABAB;
-  --faint: #EFEFEF;
-  --card: #ffffff;
+  --bg:    #F7F6F3;
+  --ink:   #0E0E0D;
+  --blue:  #4A6F96;
+  --muted: #9A9A96;
+  --faint: #EDECEA;
+  --card:  #ffffff;
 }
 
 body {
@@ -40,19 +40,19 @@ nav {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 1.2rem;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--ink);
   text-decoration: none;
 }
 .logo span { color: var(--blue); }
 
 .nav-pill {
-  background: rgba(91,127,166,0.1);
+  background: rgba(74,111,150,0.08);
   color: var(--blue);
-  border: 1px solid rgba(91,127,166,0.2);
+  border: 1px solid rgba(74,111,150,0.18);
   border-radius: 100px;
   padding: 6px 16px;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 500;
@@ -78,7 +78,8 @@ nav {
 }
 
 .eyebrow-text {
-  font-size: 0.65rem;
+  font-size: 0.62px;
+  font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--blue);
@@ -89,7 +90,7 @@ nav {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: clamp(3rem, 5.5vw, 5rem);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
   line-height: 1.02;
   color: var(--ink);
   margin-bottom: 28px;
@@ -106,6 +107,7 @@ nav {
   max-width: 560px;
   line-height: 1.7;
   margin-bottom: 48px;
+  font-weight: 300;
 }
 
 .spots-badge {
@@ -113,11 +115,11 @@ nav {
   align-items: center;
   gap: 10px;
   background: var(--ink);
-  color: #F8F8F6;
+  color: #F7F6F3;
   border-radius: 100px;
   padding: 12px 24px;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.02em;
 }
 
@@ -135,16 +137,59 @@ nav {
   margin: 0 72px;
 }
 
+/* ROI BANNER */
+.roi-banner {
+  margin: 0 72px;
+  background: var(--card);
+  border: 1px solid var(--faint);
+  border-radius: 16px;
+  padding: 32px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 0;
+}
+
+.roi-stat {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid var(--faint);
+}
+
+.roi-stat:last-child { border-right: none; }
+
+.roi-number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.roi-number span {
+  color: var(--blue);
+}
+
+.roi-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 /* WHAT YOU GET */
 .section {
   padding: 80px 72px;
 }
 
 .section-label {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
+  font-weight: 500;
   margin-bottom: 48px;
 }
 
@@ -153,7 +198,7 @@ nav {
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   background: var(--faint);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
@@ -165,7 +210,7 @@ nav {
 .feature-num {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--blue);
   letter-spacing: 0.1em;
   margin-bottom: 20px;
@@ -174,7 +219,7 @@ nav {
 .feature h3 {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   letter-spacing: -0.02em;
   color: var(--ink);
   margin-bottom: 10px;
@@ -182,9 +227,66 @@ nav {
 }
 
 .feature p {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--muted);
   line-height: 1.65;
+  font-weight: 300;
+}
+
+/* BILLING TOGGLE */
+.billing-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.billing-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.billing-label.active { color: var(--ink); font-weight: 400; }
+
+.toggle-track {
+  width: 44px;
+  height: 24px;
+  background: var(--faint);
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.toggle-track.annual { background: var(--blue); }
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.toggle-track.annual .toggle-thumb { transform: translateX(20px); }
+
+.annual-badge {
+  background: rgba(74,111,150,0.1);
+  color: var(--blue);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 /* PLANS */
@@ -195,21 +297,21 @@ nav {
 .plans-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
 
 .plan-card {
   background: var(--card);
   border: 1px solid var(--faint);
-  border-radius: 20px;
-  padding: 40px 36px;
+  border-radius: 16px;
+  padding: 36px 32px;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .plan-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.05);
 }
 
 .plan-card.featured {
@@ -224,7 +326,7 @@ nav {
   transform: translateX(-50%);
   background: var(--blue);
   color: #fff;
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   padding: 5px 14px;
@@ -235,88 +337,114 @@ nav {
 .plan-name {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  color: var(--muted);
 }
 
-.plan-card.featured .plan-name { color: var(--muted); }
-.plan-card:not(.featured) .plan-name { color: var(--muted); }
+.plan-price-wrap { margin-bottom: 4px; }
 
 .plan-price {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
-  font-size: 2.8rem;
-  letter-spacing: -0.04em;
+  font-size: 2.6rem;
+  letter-spacing: -0.05em;
   line-height: 1;
-  margin-bottom: 4px;
+  transition: opacity 0.2s;
 }
 
-.plan-card.featured .plan-price { color: #F8F8F6; }
+.plan-card.featured .plan-price { color: #F7F6F3; }
 .plan-card:not(.featured) .plan-price { color: var(--ink); }
 
 .plan-price sup {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   vertical-align: super;
   letter-spacing: 0;
 }
 
 .plan-original {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--muted);
   text-decoration: line-through;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .plan-period {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--muted);
-  margin-bottom: 32px;
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+
+/* Annual savings pill per card */
+.plan-savings {
+  display: inline-block;
+  background: rgba(74,111,150,0.1);
+  color: var(--blue);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.plan-savings.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.plan-card.featured .plan-savings {
+  background: rgba(255,255,255,0.1);
+  color: #aac4e0;
 }
 
 .plan-features {
   list-style: none;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .plan-features li {
-  font-size: 0.8rem;
-  padding: 9px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.78rem;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--faint);
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.plan-card:not(.featured) .plan-features li {
-  border-bottom-color: var(--faint);
-  color: #444;
+.plan-card.featured .plan-features li {
+  border-bottom-color: rgba(255,255,255,0.06);
+  color: #aaa;
 }
 
-.plan-card.featured .plan-features li { color: #ccc; }
+.plan-card:not(.featured) .plan-features li { color: #3A3A38; }
 
-.check {
-  width: 16px;
-  height: 16px;
+.check-icon {
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: rgba(91,127,166,0.15);
+  background: rgba(74,111,150,0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: var(--blue);
 }
 
 .plan-btn {
   width: 100%;
-  padding: 14px;
+  padding: 13px;
   border-radius: 100px;
   border: none;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
   font-style: italic;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -324,21 +452,43 @@ nav {
 
 .plan-btn:hover { opacity: 0.85; }
 
-.plan-card.featured .plan-btn {
-  background: var(--blue);
-  color: #fff;
+.plan-card.featured .plan-btn { background: var(--blue); color: #fff; }
+.plan-card:not(.featured) .plan-btn { background: var(--ink); color: #F7F6F3; }
+
+/* ROI CALLOUT under plans */
+.roi-callout {
+  margin-top: 28px;
+  padding: 20px 28px;
+  background: rgba(74,111,150,0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(74,111,150,0.12);
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.plan-card:not(.featured) .plan-btn {
-  background: var(--ink);
-  color: #fff;
+.roi-callout-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.roi-callout p {
+  font-size: 0.78rem;
+  color: var(--ink);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.roi-callout strong {
+  font-weight: 500;
+  color: var(--blue);
 }
 
 /* FORM */
 .form-section {
   background: var(--ink);
   margin: 0 72px 80px;
-  border-radius: 24px;
+  border-radius: 20px;
   padding: 72px 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -350,34 +500,28 @@ nav {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 2.4rem;
-  letter-spacing: -0.04em;
-  color: #F8F8F6;
+  letter-spacing: -0.05em;
+  color: #F7F6F3;
   line-height: 1.1;
   margin-bottom: 16px;
 }
 
-.form-left h2 em {
-  font-style: italic;
-  color: var(--blue);
-}
+.form-left h2 em { font-style: italic; color: var(--blue); }
 
 .form-left p {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.83rem;
+  color: #555;
   line-height: 1.7;
+  font-weight: 300;
 }
 
 .form-right { display: flex; flex-direction: column; gap: 14px; }
 
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.form-field { display: flex; flex-direction: column; gap: 6px; }
 
 .form-field label {
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #555;
   font-weight: 500;
@@ -389,16 +533,17 @@ nav {
   border-radius: 10px;
   padding: 13px 16px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  color: #F8F8F6;
+  font-size: 0.83rem;
+  color: #F7F6F3;
   outline: none;
   transition: border-color 0.2s;
   appearance: none;
+  font-weight: 300;
 }
 
 .form-field input::placeholder { color: #444; }
 .form-field input:focus, .form-field select:focus { border-color: var(--blue); }
-.form-field select option { background: #222; color: #F8F8F6; }
+.form-field select option { background: #222; color: #F7F6F3; }
 
 .form-submit {
   margin-top: 8px;
@@ -408,8 +553,8 @@ nav {
   border: none;
   border-radius: 100px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: 0.83rem;
+  font-weight: 400;
   font-style: italic;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -418,33 +563,30 @@ nav {
 .form-submit:hover { opacity: 0.88; }
 
 .form-note {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: #444;
   text-align: center;
   margin-top: 4px;
+  font-weight: 300;
 }
 
-/* SUCCESS */
 .success-msg {
   display: none;
   text-align: center;
   padding: 40px 0;
 }
 
-.success-msg .check-big {
-  font-size: 2rem;
-  margin-bottom: 16px;
-}
+.success-msg .check-big { font-size: 2rem; margin-bottom: 16px; }
 
 .success-msg h3 {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
   font-size: 1.2rem;
-  color: #F8F8F6;
+  color: #F7F6F3;
   margin-bottom: 8px;
 }
 
-.success-msg p { font-size: 0.82rem; color: #666; }
+.success-msg p { font-size: 0.82rem; color: #555; }
 
 /* FOOTER */
 footer {
@@ -456,12 +598,7 @@ footer {
 }
 
 footer .logo { font-size: 1rem; }
-
-footer p {
-  font-size: 0.68rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
+footer p { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.06em; }
 
 /* MOBILE */
 @media (max-width: 768px) {
@@ -474,6 +611,9 @@ footer p {
   .plans-grid { grid-template-columns: 1fr; }
   .form-section { margin: 0 24px 56px; padding: 40px 28px; grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 24px; flex-direction: column; gap: 12px; text-align: center; }
+  .roi-banner { margin: 0 24px; grid-template-columns: 1fr; }
+  .roi-stat { border-right: none; border-bottom: 1px solid var(--faint); padding: 20px 0; }
+  .roi-stat:last-child { border-bottom: none; }
 }
 </style>
 </head>
@@ -492,10 +632,30 @@ footer p {
     <div class="eyebrow-text">25 spots. No demos. No sales calls.</div>
   </div>
   <h1>Built for owners<br/>who are <em>done</em><br/>with spreadsheets.</h1>
-  <p class="hero-sub">Lumetra automates your inventory so you never run out of product, never over-order, and never spend another morning counting vials. We're onboarding our first 25 clients personally — at a rate that never goes up.</p>
+  <p class="hero-sub">Lumetra pays for itself the first time it prevents a stockout. Most clients recover the monthly cost within the first week — then keep saving every month after that.</p>
   <div class="spots-badge">
     <span class="count">25</span>
     founding spots available
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ROI STATS BANNER -->
+<div style="padding: 48px 72px;">
+  <div class="roi-banner" style="margin: 0;">
+    <div class="roi-stat">
+      <div class="roi-number"><span>$</span>1,200</div>
+      <div class="roi-label">Average cost of a single<br/>Botox stockout in lost revenue</div>
+    </div>
+    <div class="roi-stat">
+      <div class="roi-number">11<span>×</span></div>
+      <div class="roi-label">Average ROI in month one<br/>for Essentials plan clients</div>
+    </div>
+    <div class="roi-stat">
+      <div class="roi-number">4<span>hrs</span></div>
+      <div class="roi-label">Average time saved per week<br/>on manual inventory checks</div>
+    </div>
   </div>
 </div>
 
@@ -513,7 +673,7 @@ footer p {
     <div class="feature">
       <div class="feature-num">02</div>
       <h3>Personal onboarding</h3>
-      <p>We set everything up for you. Products, suppliers, thresholds — imported and configured so the bot runs from day one.</p>
+      <p>We set everything up for you. Products, suppliers, thresholds — configured so the bot runs from day one.</p>
     </div>
     <div class="feature">
       <div class="feature-num">03</div>
@@ -528,7 +688,7 @@ footer p {
     <div class="feature">
       <div class="feature-num">05</div>
       <h3>Real-time dashboard</h3>
-      <p>See everything at once. Stock levels, expiry dates, order history, alerts — all in one place, always up to date.</p>
+      <p>See everything at once. Stock levels, order history, alerts — always up to date, always yours.</p>
     </div>
     <div class="feature">
       <div class="feature-num">06</div>
@@ -543,56 +703,85 @@ footer p {
 <!-- PLANS -->
 <div class="plans-section" style="padding-top: 80px;">
   <div class="section-label">Founding member pricing</div>
+
+  <!-- BILLING TOGGLE -->
+  <div class="billing-toggle-wrap">
+    <span class="billing-label active" id="label-monthly">Monthly</span>
+    <div class="toggle-track" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="billing-label" id="label-annual">Annual</span>
+    <span class="annual-badge">2 months free</span>
+  </div>
+
   <div class="plans-grid">
 
+    <!-- ESSENTIALS -->
     <div class="plan-card">
       <div class="plan-name">Essentials</div>
-      <div class="plan-original">$149/mo regular</div>
-      <div class="plan-price"><sup>$</sup>99</div>
-      <div class="plan-period">/ month, locked forever</div>
+      <div class="plan-original" id="orig-essentials">$149/mo regular</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" id="price-essentials"><sup>$</sup><span id="price-val-essentials">99</span></div>
+      </div>
+      <div class="plan-period" id="period-essentials">/ month, locked forever</div>
+      <div class="plan-savings" id="savings-essentials">Save $198/yr vs monthly</div>
       <ul class="plan-features">
-        <li><span class="check">✓</span>Up to 50 products</li>
-        <li><span class="check">✓</span>Automated reorder alerts</li>
-        <li><span class="check">✓</span>Real-time dashboard</li>
-        <li><span class="check">✓</span>1 location</li>
-        <li><span class="check">✓</span>Email support</li>
+        <li><span class="check-icon">✓</span>Up to 50 products</li>
+        <li><span class="check-icon">✓</span>Automated reorder alerts</li>
+        <li><span class="check-icon">✓</span>Real-time dashboard</li>
+        <li><span class="check-icon">✓</span>1 location</li>
+        <li><span class="check-icon">✓</span>Email support (48h)</li>
       </ul>
       <button class="plan-btn" onclick="selectPlan('Essentials')">Claim this spot →</button>
     </div>
 
+    <!-- STUDIO -->
     <div class="plan-card featured">
       <div class="plan-featured-badge">Most Popular</div>
       <div class="plan-name">Studio</div>
-      <div class="plan-original" style="color:#555">$349/mo regular</div>
-      <div class="plan-price"><sup>$</sup>229</div>
-      <div class="plan-period" style="color:#555">/ month, locked forever</div>
+      <div class="plan-original" style="color:#555" id="orig-studio">$349/mo regular</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" id="price-studio"><sup>$</sup><span id="price-val-studio">229</span></div>
+      </div>
+      <div class="plan-period" style="color:#555" id="period-studio">/ month, locked forever</div>
+      <div class="plan-savings" id="savings-studio">Save $458/yr vs monthly</div>
       <ul class="plan-features">
-        <li><span class="check">✓</span>Up to 200 products</li>
-        <li><span class="check">✓</span>Automated reorder alerts</li>
-        <li><span class="check">✓</span>Real-time dashboard</li>
-        <li><span class="check">✓</span>Luma AI assistant</li>
-        <li><span class="check">✓</span>Up to 3 locations</li>
-        <li><span class="check">✓</span>Priority support</li>
+        <li><span class="check-icon">✓</span>Up to 200 products</li>
+        <li><span class="check-icon">✓</span>Automated reorder alerts</li>
+        <li><span class="check-icon">✓</span>Real-time dashboard</li>
+        <li><span class="check-icon">✓</span>Luma AI assistant</li>
+        <li><span class="check-icon">✓</span>Up to 3 locations</li>
+        <li><span class="check-icon">✓</span>Priority support (24h)</li>
       </ul>
       <button class="plan-btn" onclick="selectPlan('Studio')">Claim this spot →</button>
     </div>
 
+    <!-- ATELIER -->
     <div class="plan-card">
       <div class="plan-name">Atelier</div>
-      <div class="plan-original">$999/mo regular</div>
-      <div class="plan-price"><sup>$</sup>649</div>
-      <div class="plan-period">/ month, locked forever</div>
+      <div class="plan-original" id="orig-atelier">$999/mo regular</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" id="price-atelier"><sup>$</sup><span id="price-val-atelier">649</span></div>
+      </div>
+      <div class="plan-period" id="period-atelier">/ month, locked forever</div>
+      <div class="plan-savings" id="savings-atelier">Save $1,298/yr vs monthly</div>
       <ul class="plan-features">
-        <li><span class="check">✓</span>Unlimited products</li>
-        <li><span class="check">✓</span>Automated reorder alerts</li>
-        <li><span class="check">✓</span>Real-time dashboard</li>
-        <li><span class="check">✓</span>Luma AI assistant</li>
-        <li><span class="check">✓</span>Unlimited locations</li>
-        <li><span class="check">✓</span>Direct founder access</li>
+        <li><span class="check-icon">✓</span>Unlimited products</li>
+        <li><span class="check-icon">✓</span>Automated reorder alerts</li>
+        <li><span class="check-icon">✓</span>Real-time dashboard</li>
+        <li><span class="check-icon">✓</span>Luma AI assistant</li>
+        <li><span class="check-icon">✓</span>Unlimited locations</li>
+        <li><span class="check-icon">✓</span>Direct founder access</li>
       </ul>
       <button class="plan-btn" onclick="selectPlan('Atelier')">Claim this spot →</button>
     </div>
 
+  </div>
+
+  <!-- ROI CALLOUT -->
+  <div class="roi-callout">
+    <div class="roi-callout-icon">✦</div>
+    <p>A single prevented stockout on Botox typically covers <strong>12+ months of Essentials</strong>. Most clients see positive ROI before their second invoice. <a href="/index.html#roi" style="color:var(--blue);font-style:italic;">Calculate your savings →</a></p>
   </div>
 </div>
 
@@ -621,9 +810,12 @@ footer p {
           <label>Plan</label>
           <select id="f-plan">
             <option value="">Select a plan</option>
-            <option value="Essentials">Essentials — $99/mo</option>
-            <option value="Studio">Studio — $229/mo</option>
-            <option value="Atelier">Atelier — $649/mo</option>
+            <option value="Essentials Monthly">Essentials — $99/mo</option>
+            <option value="Essentials Annual">Essentials Annual — $83/mo (billed yearly)</option>
+            <option value="Studio Monthly">Studio — $229/mo</option>
+            <option value="Studio Annual">Studio Annual — $191/mo (billed yearly)</option>
+            <option value="Atelier Monthly">Atelier — $649/mo</option>
+            <option value="Atelier Annual">Atelier Annual — $541/mo (billed yearly)</option>
           </select>
         </div>
         <button class="form-submit" onclick="submitForm()">Reserve my spot →</button>
@@ -648,11 +840,39 @@ footer p {
 const SUPABASE_URL = 'https://aoblhegfxzxcluzmpxhb.supabase.co'
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmxoZWdmeHp4Y2x1em1weGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3MzgsImV4cCI6MjA4ODIyNzczOH0.L_KFazTSAoZf106in8CyRBfynuwoEKLfCpXaDhO-yw0'
 
+// ── BILLING TOGGLE ────────────────────────────────────────────────────────
+let isAnnual = false
+
+const plans = {
+  essentials: { monthly: 99,  annual: 83  },
+  studio:     { monthly: 229, annual: 191 },
+  atelier:    { monthly: 649, annual: 541 },
+}
+
+function toggleBilling() {
+  isAnnual = !isAnnual
+  const track = document.getElementById('billing-toggle')
+  track.classList.toggle('annual', isAnnual)
+  document.getElementById('label-monthly').classList.toggle('active', !isAnnual)
+  document.getElementById('label-annual').classList.toggle('active', isAnnual)
+
+  Object.entries(plans).forEach(([key, p]) => {
+    const price   = isAnnual ? p.annual : p.monthly
+    const period  = isAnnual ? '/ month, billed annually' : '/ month, locked forever'
+    document.getElementById(`price-val-${key}`).textContent = price
+    document.getElementById(`period-${key}`).textContent = period
+    document.getElementById(`savings-${key}`).classList.toggle('visible', isAnnual)
+  })
+}
+
+// ── PLAN SELECT ───────────────────────────────────────────────────────────
 function selectPlan(plan) {
-  document.getElementById('f-plan').value = plan
+  const suffix = isAnnual ? ' Annual' : ' Monthly'
+  document.getElementById('f-plan').value = plan + suffix
   document.getElementById('claim').scrollIntoView({ behavior: 'smooth' })
 }
 
+// ── FORM SUBMIT ───────────────────────────────────────────────────────────
 async function submitForm() {
   const name  = document.getElementById('f-name').value.trim()
   const email = document.getElementById('f-email').value.trim()
