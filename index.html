@@ -2,687 +2,977 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lumetra — Owner's Eyes Only</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumetra. — Automated inventory for medspas.</title>
+  <meta name="description" content="Lumetra tracks your medspa's stock levels, expiration dates, and reorder alerts automatically. Nothing expires. Nothing runs out." />
+  <meta property="og:title" content="Lumetra. — Automated inventory for medspas." />
+  <meta property="og:description" content="Stock levels, expiration dates, reorder alerts — handled automatically." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:     #F7F6F3;
-      --ink:    #0E0E0D;
-      --ink2:   #3A3A38;
-      --blue:   #4A6F96;
-      --muted:  #9A9A96;
-      --faint:  #EDECEA;
-      --card:   #FFFFFF;
-    }
-
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      background: #FFFFFF;
+      color: #0E0E0D;
       -webkit-font-smoothing: antialiased;
-      cursor: default;
+      overflow-x: hidden;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 100;
-      opacity: 0.35;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 48px;
-    }
-
+    /* ── Nav ─────────────────────────────────────── */
     nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 36px 0 32px;
-      border-bottom: 1px solid var(--faint);
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards;
+      justify-content: space-between;
+      padding: 0 52px;
+      z-index: 200;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #EDECEA;
     }
 
-    .logo {
+    .wordmark {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 1.1rem;
+      color: #0E0E0D;
       letter-spacing: -0.04em;
-      color: var(--ink);
       text-decoration: none;
     }
-    .logo span { color: var(--blue); }
+    .wordmark .dot { color: #4A6F96; }
+    .wordmark.light { color: #FFFFFF; }
+    .wordmark.light .dot { color: #4A6F96; }
 
-    .nav-tag {
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      align-items: end;
-      padding: 80px 0 72px;
-    }
-
-    .hero-left {
-      opacity: 0;
-      animation: fadeUp 0.9s 0.15s ease forwards;
-    }
-
-    .eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 28px;
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 500;
+      gap: 28px;
     }
-    .eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 1px;
-      background: var(--blue);
+    .nav-link {
+      font-size: 0.75rem;
+      color: #9A9A96;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #0E0E0D; }
+    .nav-link.light { color: rgba(255,255,255,0.5); }
+    .nav-link.light:hover { color: #fff; }
+    .nav-cta {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #0E0E0D;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1px solid #EDECEA;
+      border-radius: 8px;
+      background: #fff;
+      transition: border-color 0.2s, background 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .nav-cta:hover { border-color: #4A6F96; }
+
+    /* ── Hero ─────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 52px 80px;
+      position: relative;
+      overflow: hidden;
     }
 
-    h1 {
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .hero-tag-line {
+      width: 28px;
+      height: 1px;
+      background: #C8C7C4;
+    }
+    .hero-tag-text {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9A9A96;
+    }
+
+    .hero h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
       line-height: 0.95;
       letter-spacing: -0.05em;
-      color: var(--ink);
-      margin-bottom: 32px;
+      color: #0E0E0D;
+      margin-bottom: 48px;
+      max-width: 900px;
     }
-    h1 em { font-style: italic; font-weight: 400; color: var(--blue); }
+    .hero h1 .period { color: #4A6F96; }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
 
     .hero-sub {
       font-size: 0.95rem;
+      color: #6A6A66;
       line-height: 1.7;
-      color: var(--muted);
-      max-width: 340px;
-      font-weight: 300;
-    }
-
-    .hero-right {
-      padding-left: 80px;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.3s ease forwards;
-    }
-
-    .invite-card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 36px;
-    }
-
-    .invite-label {
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-
-    .invite-headline {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 8px;
-      letter-spacing: -0.03em;
-    }
-
-    .invite-sub {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 28px;
-      font-weight: 300;
-    }
-
-    .form-group { margin-bottom: 10px; }
-
-    .form-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid var(--faint);
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.83rem;
-      font-weight: 300;
-      color: var(--ink);
-      background: #FAFAF8;
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .form-input::placeholder { color: #C8C7C4; }
-    .form-input:focus { border-color: var(--blue); background: var(--card); }
-
-    .form-btn {
-      width: 100%;
-      padding: 14px;
-      background: var(--ink);
-      color: var(--bg);
-      border: none;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
+      max-width: 380px;
       font-weight: 400;
-      font-style: italic;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
-      margin-top: 8px;
-    }
-    .form-btn:hover { opacity: 0.8; }
-    .form-btn:active { transform: scale(0.99); }
-
-    .form-note {
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 12px;
-      line-height: 1.5;
-      font-weight: 300;
     }
 
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-ink {
+      display: inline-block;
+      padding: 15px 32px;
+      background: #0E0E0D;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 8px;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-ink:hover { background: #2A2A28; }
+
+    .hero-hint {
+      font-size: 0.68rem;
+      color: #C8C7C4;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Marquee strip ───────────────────────────── */
     .marquee-wrap {
+      border-top: 1px solid #EDECEA;
+      border-bottom: 1px solid #EDECEA;
       overflow: hidden;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--faint);
-      opacity: 0;
-      animation: fadeIn 1s 0.6s ease forwards;
+      padding: 16px 0;
+      background: #FAFAF8;
     }
-
     .marquee-track {
       display: flex;
-      gap: 60px;
-      animation: marquee 24s linear infinite;
+      gap: 64px;
+      animation: marquee 28s linear infinite;
       width: max-content;
     }
-
     .marquee-item {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 60px;
-      font-weight: 400;
+      gap: 12px;
+      white-space: nowrap;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #C8C7C4;
+      flex-shrink: 0;
     }
-    .marquee-item::after { content: '✦'; color: var(--blue); font-size: 0.45rem; }
+    .marquee-item .spark { color: #4A6F96; font-size: 0.5rem; }
 
     @keyframes marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
 
-    /* ROI */
-    .roi-section {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--faint);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.5s ease forwards;
+    /* ── Dark "what" section ──────────────────────── */
+    .dark-section {
+      background: #0E0E0D;
+      padding: 140px 52px;
     }
-
-    .roi-eyebrow {
+    .dark-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .dark-label {
       font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       font-weight: 500;
-    }
-    .roi-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--blue); }
-
-    .roi-headline {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      color: var(--ink);
-      margin-bottom: 12px;
-    }
-    .roi-headline em { font-style: italic; font-weight: 400; color: var(--blue); }
-
-    .roi-sub {
-      font-size: 0.88rem;
-      color: var(--muted);
-      font-weight: 300;
-      margin-bottom: 48px;
-      max-width: 460px;
-      line-height: 1.7;
-    }
-
-    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-    .roi-inputs { display: flex; flex-direction: column; gap: 22px; }
-
-    .roi-field label {
-      display: block;
-      font-size: 0.6rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .roi-slider-wrap { display: flex; align-items: center; gap: 16px; }
-
-    .roi-slider {
-      flex: 1;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 2px;
-      border-radius: 99px;
-      background: var(--faint);
-      outline: none;
-      cursor: pointer;
-    }
-    .roi-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: var(--ink);
-      cursor: pointer;
-      border: 2.5px solid var(--bg);
-      box-shadow: 0 0 0 1px var(--faint);
-      transition: background 0.15s;
-    }
-    .roi-slider::-webkit-slider-thumb:hover { background: var(--blue); }
-
-    .roi-val {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--ink);
-      min-width: 52px;
-      text-align: right;
-      letter-spacing: -0.03em;
-    }
-
-    .roi-result {
-      background: var(--ink);
-      border-radius: 16px;
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 300px;
-    }
-
-    .roi-result-label {
-      font-size: 0.58rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 8px;
-      font-weight: 500;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 64px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dark-label::after {
+      content: '';
+      display: block;
+      flex: 1;
+      max-width: 48px;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
     }
 
-    .roi-result-num {
+    .dark-headline {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
-      color: #F7F6F3;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      color: #FFFFFF;
+      max-width: 760px;
+      margin-bottom: 80px;
+    }
+    .dark-headline .period { color: #4A6F96; }
+    .dark-headline em {
+      font-style: normal;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .dark-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .dark-col {
+      background: #0E0E0D;
+      padding: 40px 36px;
+    }
+
+    .dark-col-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.6rem;
       letter-spacing: -0.05em;
+      color: #FFFFFF;
       line-height: 1;
       margin-bottom: 6px;
     }
+    .dark-col-num .accent { color: #4A6F96; }
 
-    .roi-result-desc {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.4);
-      font-weight: 300;
-      line-height: 1.6;
-      margin-bottom: 32px;
+    .dark-col-label {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
     }
 
-    .roi-breakdown {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 20px;
+    .dark-col p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ── How it works ─────────────────────────────── */
+    .how-section {
+      padding: 140px 52px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 96px;
+      border-bottom: 1px solid #EDECEA;
+      padding-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9A9A96;
+    }
+
+    .section-count {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C8C7C4;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .step {
+      padding: 0 48px 0 0;
+      border-right: 1px solid #EDECEA;
+    }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step:not(:first-child) { padding-left: 48px; }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 5rem;
+      letter-spacing: -0.06em;
+      color: #F2F1EF;
+      line-height: 1;
+      margin-bottom: 28px;
+      transition: color 0.3s;
+    }
+    .step:hover .step-num { color: #EDECEA; }
+
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: #0E0E0D;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .step p {
+      font-size: 0.86rem;
+      color: #6A6A66;
+      line-height: 1.7;
+    }
+
+    /* ── Plans ────────────────────────────────────── */
+    .plans-section {
+      background: #FAFAF8;
+      border-top: 1px solid #EDECEA;
+      border-bottom: 1px solid #EDECEA;
+      padding: 140px 52px;
+    }
+
+    .plans-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .plans-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+
+    .plans-top h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      letter-spacing: -0.04em;
+      color: #0E0E0D;
+      line-height: 1.05;
+    }
+    .plans-top h2 .period { color: #4A6F96; }
+
+    .plans-top p {
+      font-size: 0.9rem;
+      color: #9A9A96;
+      line-height: 1.7;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .plan-card {
+      background: #FFFFFF;
+      border: 1px solid #EDECEA;
+      border-radius: 12px;
+      padding: 40px 32px 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .plan-card:hover {
+      box-shadow: 0 2px 24px rgba(14,14,13,0.06);
+    }
+    .plan-card.featured {
+      border-width: 2px;
+      border-color: #4A6F96;
+    }
+    .plan-card.atelier {
+      background: #FDFCFA;
+      border-color: rgba(184,150,90,0.2);
+    }
+
+    .plan-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: 18px; right: 18px;
+      font-size: 0.54rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(74,111,150,0.1);
+      color: #4A6F96;
+    }
+
+    .plan-tier {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .plan-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.03em;
+      color: #0E0E0D;
+      margin-bottom: 24px;
+    }
+
+    .plan-price-block {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+
+    .plan-price {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.4rem;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: #0E0E0D;
+    }
+
+    .plan-mo { font-size: 0.7rem; color: #9A9A96; }
+    .plan-setup { font-size: 0.65rem; color: #C8C7C4; margin-bottom: 32px; }
+
+    .plan-divider {
+      width: 100%;
+      height: 1px;
+      background: #F2F1EF;
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .roi-breakdown-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.72rem; }
-    .roi-breakdown-row .rbl { color: rgba(255,255,255,0.35); font-weight: 300; }
-    .roi-breakdown-row .rbv { color: #F7F6F3; font-weight: 400; }
-
-    .roi-cta {
-      margin-top: 24px;
-      display: block;
-      width: 100%;
-      padding: 13px;
-      background: #F7F6F3;
-      color: var(--ink);
-      border: none;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      font-style: italic;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: opacity 0.15s;
+    .plan-features li {
+      font-size: 0.8rem;
+      color: #5A5A56;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
     }
-    .roi-cta:hover { opacity: 0.85; }
 
-    .stats {
+    .f-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── Access ───────────────────────────────────── */
+    .access-section {
+      padding: 160px 52px;
+    }
+
+    .access-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--faint);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.45s ease forwards;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: center;
     }
 
-    .stat { padding: 40px 0; border-right: 1px solid var(--faint); }
-    .stat:last-child { border-right: none; padding-left: 40px; }
-    .stat:nth-child(2) { padding-left: 40px; }
+    .access-left .eyebrow {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9A9A96;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .access-left .eyebrow::before {
+      content: '✦';
+      font-size: 0.45rem;
+      color: #4A6F96;
+    }
 
-    .stat-num {
+    .access-left h2 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 2.8rem;
-      color: var(--ink);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
       letter-spacing: -0.05em;
-      line-height: 1;
-      margin-bottom: 8px;
+      color: #0E0E0D;
+      line-height: 1.0;
     }
-    .stat-num span { color: var(--blue); }
+    .access-left h2 .period { color: #4A6F96; }
 
-    .stat-label {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 400;
+    .access-right p {
+      font-size: 0.9rem;
+      color: #6A6A66;
+      line-height: 1.75;
+      margin-bottom: 32px;
     }
 
-    footer {
-      padding: 28px 0;
+    .access-form {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .access-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .access-input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1px solid #EDECEA;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-family: inherit;
+      color: #0E0E0D;
+      background: #FAFAF8;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .access-input:focus {
+      border-color: #4A6F96;
+      background: #fff;
+    }
+    .access-input::placeholder { color: #C8C7C4; }
+
+    .access-btn {
+      padding: 14px 26px;
+      background: #0E0E0D;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .access-btn:hover { background: #2A2A28; }
+
+    .access-note {
+      font-size: 0.68rem;
+      color: #C8C7C4;
+    }
+
+    .access-success {
+      font-size: 0.86rem;
+      color: #3D7A56;
+      display: none;
+      padding: 4px 0;
+    }
+
+    /* ── Footer ───────────────────────────────────── */
+    .footer-wrap {
+      border-top: 1px solid #EDECEA;
+    }
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 52px;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      color: #9A9A96;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #0E0E0D; }
+    .footer-copy { font-size: 0.68rem; color: #C8C7C4; }
+
+    /* ── Scroll reveal ────────────────────────────── */
+    .reveal {
       opacity: 0;
-      animation: fadeIn 1s 0.7s ease forwards;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-
-    .footer-left { font-size: 0.68rem; color: var(--muted); font-weight: 300; }
-    .footer-right { font-size: 0.68rem; color: var(--muted); }
-    .footer-right a { color: var(--blue); text-decoration: none; font-style: italic; }
-
-    .success-msg { display: none; text-align: center; padding: 20px 0; }
-    .success-msg.show { display: block; }
-    .success-icon { font-size: 1.2rem; margin-bottom: 10px; }
-    .success-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.02em; }
-    .success-sub { font-size: 0.72rem; color: var(--muted); font-weight: 300; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
 
-    @media (max-width: 768px) {
-      .page { padding: 0 24px; }
-      .hero { grid-template-columns: 1fr; gap: 48px; }
-      .hero-right { padding-left: 0; }
-      h1 { font-size: 3rem; }
-      .stats { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--faint); padding: 28px 0; }
-      .stat:last-child { padding-left: 0; }
-      .stat:nth-child(2) { padding-left: 0; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
-      .roi-grid { grid-template-columns: 1fr; }
+    /* ── Mobile ───────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links .nav-cta { display: none; }
+
+      .hero {
+        padding: 0 24px 64px;
+        min-height: 100svh;
+        justify-content: flex-end;
+      }
+      .hero-watermark { display: none; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .hero-actions { align-items: flex-start; }
+
+      .dark-section { padding: 80px 24px; }
+      .dark-cols { grid-template-columns: 1fr; }
+
+      .how-section { padding: 80px 24px; }
+      .section-header { margin-bottom: 56px; }
+      .steps { grid-template-columns: 1fr; gap: 48px; }
+      .step { border-right: none; border-bottom: 1px solid #EDECEA; padding: 0 0 48px 0 !important; }
+      .step:last-child { border-bottom: none; padding-bottom: 0 !important; }
+
+      .plans-section { padding: 80px 24px; }
+      .plans-top { grid-template-columns: 1fr; gap: 20px; }
+      .plans-grid { grid-template-columns: 1fr; }
+
+      .access-section { padding: 80px 24px; }
+      .access-inner { grid-template-columns: 1fr; gap: 48px; }
+      .access-input-row { flex-direction: column; }
+      .access-btn { width: 100%; }
+
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+      .footer-links { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
 
-    <nav>
-      <a class="logo" href="#">Lumetra<span>.</span></a>
-      <span class="nav-tag">Owner's Eyes Only</span>
-    </nav>
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="/" class="wordmark">Lumetra<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="https://app.luminehq.com" class="nav-link">Log in</a>
+      <a href="#access" class="nav-cta">Request access</a>
+    </div>
+  </nav>
 
-    <div class="hero">
-      <div class="hero-left">
-        <div class="eyebrow">Invite Only</div>
-        <h1>Your front<br/>desk isn't<br/>your <em>bottleneck.</em><br/>Your software is.</h1>
-        <p class="hero-sub">Lumetra automates inventory for medical spas — so you stop losing money to stockouts, manual reorders, and supplier chaos.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <span class="hero-tag-line"></span>
+        <span class="hero-tag-text">Automated medspa inventory</span>
       </div>
-
-      <div class="hero-right">
-        <div class="invite-card">
-          <div class="invite-label">Request early access</div>
-          <div class="invite-headline">Built for MedSpa owners who want to stop leaving money on the table.</div>
-          <div class="invite-sub">We're onboarding our first 25 owners personally. No demos. No sales calls. Just results.</div>
-
-          <div id="form-wrap">
-            <div class="form-group"><input class="form-input" type="text" id="name" placeholder="Your name" /></div>
-            <div class="form-group"><input class="form-input" type="email" id="email" placeholder="Owner email" /></div>
-            <div class="form-group"><input class="form-input" type="text" id="spa" placeholder="MedSpa name" /></div>
-            <button class="form-btn" onclick="handleSubmit()">request an invite →</button>
-            <div class="form-note">Founding Member access · Limited to 25 owners · Reviewed personally</div>
-          </div>
-
-          <div class="success-msg" id="success">
-            <div class="success-icon">✦</div>
-            <div class="success-text">You're on the list.</div>
-            <div class="success-sub">We'll be in touch within 48 hours.</div>
-          </div>
+      <h1>
+        Inventory,<br>made calm<span class="period">.</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-sub">
+          Stock levels, expiration dates, reorder alerts —
+          handled automatically. Nothing expires.
+          Nothing runs out. You just treat patients.
+        </p>
+        <div class="hero-actions">
+          <a href="#access" class="btn-ink">Request access →</a>
+          <span class="hero-hint">Access is by invitation</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="marquee-wrap">
-      <div class="marquee-track">
-        <span class="marquee-item">Automated reorders</span>
-        <span class="marquee-item">Zero stockouts</span>
-        <span class="marquee-item">Supplier management</span>
-        <span class="marquee-item">Real-time alerts</span>
-        <span class="marquee-item">AI inventory assistant</span>
-        <span class="marquee-item">Built for MedSpas</span>
-        <span class="marquee-item">Automated reorders</span>
-        <span class="marquee-item">Zero stockouts</span>
-        <span class="marquee-item">Supplier management</span>
-        <span class="marquee-item">Real-time alerts</span>
-        <span class="marquee-item">AI inventory assistant</span>
-        <span class="marquee-item">Built for MedSpas</span>
-      </div>
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" aria-hidden="true">
+      <span class="marquee-item"><span class="spark">✦</span> Stock tracking</span>
+      <span class="marquee-item"><span class="spark">✦</span> Expiration alerts</span>
+      <span class="marquee-item"><span class="spark">✦</span> Lot traceability</span>
+      <span class="marquee-item"><span class="spark">✦</span> Reorder automation</span>
+      <span class="marquee-item"><span class="spark">✦</span> Injector sign-out</span>
+      <span class="marquee-item"><span class="spark">✦</span> Usage analytics</span>
+      <span class="marquee-item"><span class="spark">✦</span> Supplier management</span>
+      <span class="marquee-item"><span class="spark">✦</span> Audit trail</span>
+      <!-- duplicate for infinite loop -->
+      <span class="marquee-item"><span class="spark">✦</span> Stock tracking</span>
+      <span class="marquee-item"><span class="spark">✦</span> Expiration alerts</span>
+      <span class="marquee-item"><span class="spark">✦</span> Lot traceability</span>
+      <span class="marquee-item"><span class="spark">✦</span> Reorder automation</span>
+      <span class="marquee-item"><span class="spark">✦</span> Injector sign-out</span>
+      <span class="marquee-item"><span class="spark">✦</span> Usage analytics</span>
+      <span class="marquee-item"><span class="spark">✦</span> Supplier management</span>
+      <span class="marquee-item"><span class="spark">✦</span> Audit trail</span>
     </div>
-
-    <div class="roi-section">
-      <div class="roi-eyebrow">ROI Calculator</div>
-      <div class="roi-headline">See what stockouts are<br/><em>actually costing you.</em></div>
-      <div class="roi-sub">Adjust the sliders to match your practice. Most owners are surprised by the number on the right.</div>
-
-      <div class="roi-grid">
-        <div class="roi-inputs">
-          <div class="roi-field">
-            <label>Products tracked</label>
-            <div class="roi-slider-wrap">
-              <input type="range" class="roi-slider" id="s-products" min="10" max="200" value="50" oninput="calcROI()"/>
-              <span class="roi-val" id="v-products">50</span>
-            </div>
-          </div>
-          <div class="roi-field">
-            <label>Avg product cost ($)</label>
-            <div class="roi-slider-wrap">
-              <input type="range" class="roi-slider" id="s-cost" min="50" max="1000" value="250" step="10" oninput="calcROI()"/>
-              <span class="roi-val" id="v-cost">$250</span>
-            </div>
-          </div>
-          <div class="roi-field">
-            <label>Stockouts per month</label>
-            <div class="roi-slider-wrap">
-              <input type="range" class="roi-slider" id="s-stockouts" min="1" max="20" value="4" oninput="calcROI()"/>
-              <span class="roi-val" id="v-stockouts">4</span>
-            </div>
-          </div>
-          <div class="roi-field">
-            <label>Hours spent on manual reorders / week</label>
-            <div class="roi-slider-wrap">
-              <input type="range" class="roi-slider" id="s-hours" min="1" max="20" value="3" oninput="calcROI()"/>
-              <span class="roi-val" id="v-hours">3 hrs</span>
-            </div>
-          </div>
-          <div class="roi-field">
-            <label>Your hourly value ($)</label>
-            <div class="roi-slider-wrap">
-              <input type="range" class="roi-slider" id="s-rate" min="50" max="500" value="150" step="10" oninput="calcROI()"/>
-              <span class="roi-val" id="v-rate">$150</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roi-result">
-          <div>
-            <div class="roi-result-label">Estimated annual loss</div>
-            <div class="roi-result-num">$<span id="roi-num">18,600</span></div>
-            <div class="roi-result-desc">lost each year to stockouts and manual inventory work</div>
-          </div>
-          <div>
-            <div class="roi-breakdown">
-              <div class="roi-breakdown-row">
-                <span class="rbl">Stockout losses / yr</span>
-                <span class="rbv" id="rb-stockout">$12,000</span>
-              </div>
-              <div class="roi-breakdown-row">
-                <span class="rbl">Time lost / yr</span>
-                <span class="rbv" id="rb-time">$23,400</span>
-              </div>
-              <div class="roi-breakdown-row">
-                <span class="rbl">Lumetra cost / yr</span>
-                <span class="rbv" id="rb-lumetra" style="color:#4A6F96;">$1,188</span>
-              </div>
-              <div class="roi-breakdown-row" style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;margin-top:2px;">
-                <span class="rbl" style="color:rgba(255,255,255,0.6);font-weight:400;">Net savings / yr</span>
-                <span class="rbv" id="rb-net" style="color:#5BAA78;font-size:0.88rem;">$34,212</span>
-              </div>
-            </div>
-            <a href="#form-wrap" class="roi-cta" onclick="document.getElementById('name').focus()">claim your founding rate →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">$18<span>k+</span></div>
-        <div class="stat-label">saved per year on overstock & waste</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">2.5<span>hrs</span></div>
-        <div class="stat-label">saved per week, per location</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">0</div>
-        <div class="stat-label">stockouts across all active clients</div>
-      </div>
-    </div>
-
-    <footer>
-      <span class="footer-left">© 2026 Lumetra · Inventory OS for Medical Spas</span>
-      <span class="footer-right"><a href="mailto:hello@luminehq.com">hello@luminehq.com</a></span>
-    </footer>
-
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Dark section -->
+  <section class="dark-section">
+    <div class="dark-inner">
+      <div class="dark-label reveal">The problem</div>
+      <h2 class="dark-headline reveal">
+        Medspa inventory fails<br>
+        <em>the same way</em> every time<span class="period">.</span>
+      </h2>
+      <div class="dark-cols">
+        <div class="dark-col reveal">
+          <div class="dark-col-num">0<span class="accent">.</span></div>
+          <div class="dark-col-label">Stockouts</div>
+          <p>When thresholds are set, Lumetra catches shortages before they happen — not the moment a patient needs a product.</p>
+        </div>
+        <div class="dark-col reveal reveal-delay-1">
+          <div class="dark-col-num">100<span class="accent">%</span></div>
+          <div class="dark-col-label">Lot traceability</div>
+          <p>Every unit linked to a lot number and patient visit. Always ready for a compliance audit, with zero manual logging.</p>
+        </div>
+        <div class="dark-col reveal reveal-delay-2">
+          <div class="dark-col-num" style="font-size:1.8rem; padding-top:6px; letter-spacing:0;">Invite<span class="accent">.</span></div>
+          <div class="dark-col-label">Only</div>
+          <p>Lumetra is not open enrollment. We onboard practices individually. If it's a fit, you'll hear from us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <div class="how-section">
+    <div class="section-header reveal">
+      <span class="section-label">How it works</span>
+      <span class="section-count">03 steps</span>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Your inventory, in one place</h3>
+        <p>Every product you carry — Botox, fillers, lasers, consumables — tracked with stock levels, lot numbers, and expiration dates. Set once, maintained automatically.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h3>Lumetra watches the numbers</h3>
+        <p>When stock drops below your reorder threshold, an alert goes out. When something is expiring, you know in advance. No one has to remember to check.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h3>Your team logs usage in seconds</h3>
+        <p>Each injector signs out product with a PIN. Usage ties to treatment type, patient visit, and lot number — automatically, with no extra steps required.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plans -->
+  <section class="plans-section">
+    <div class="plans-inner">
+      <div class="plans-top reveal">
+        <div>
+          <p class="section-label" style="margin-bottom:16px;">Plans</p>
+          <h2>Built for different scales<span class="period">.</span></h2>
+        </div>
+        <p>Every plan includes the full inventory core — live stock tracking, reorder alerts, supplier management. Choose based on team size and reporting depth.</p>
+      </div>
+
+      <div class="plans-grid">
+
+        <!-- Essentials -->
+        <div class="plan-card reveal">
+          <div class="plan-bar" style="background:#9A9A96;"></div>
+          <div class="plan-tier" style="color:#9A9A96;">Essentials</div>
+          <div class="plan-name">The core.</div>
+          <div class="plan-price-block">
+            <span class="plan-price">$149</span>
+            <span class="plan-mo">/mo</span>
+          </div>
+          <div class="plan-setup">+ $999 setup, one time</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li><span class="f-mark" style="background:#9A9A9610;color:#9A9A96;">✓</span>Unlimited inventory tracking</li>
+            <li><span class="f-mark" style="background:#9A9A9610;color:#9A9A96;">✓</span>Auto reorder alerts</li>
+            <li><span class="f-mark" style="background:#9A9A9610;color:#9A9A96;">✓</span>Lot # &amp; expiration tracking</li>
+            <li><span class="f-mark" style="background:#9A9A9610;color:#9A9A96;">✓</span>Supplier management</li>
+            <li><span class="f-mark" style="background:#9A9A9610;color:#9A9A96;">✓</span>Email reorder notifications</li>
+          </ul>
+        </div>
+
+        <!-- Studio -->
+        <div class="plan-card featured reveal reveal-delay-1">
+          <div class="plan-bar" style="background:#4A6F96;"></div>
+          <div class="plan-badge">Most popular</div>
+          <div class="plan-tier" style="color:#4A6F96;">Studio</div>
+          <div class="plan-name" style="color:#4A6F96;">For your team.</div>
+          <div class="plan-price-block">
+            <span class="plan-price" style="color:#4A6F96;">$349</span>
+            <span class="plan-mo">/mo</span>
+          </div>
+          <div class="plan-setup">+ $1,999 setup, one time</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li><span class="f-mark" style="background:#4A6F9610;color:#4A6F96;">✓</span>Everything in Essentials</li>
+            <li><span class="f-mark" style="background:#4A6F9610;color:#4A6F96;">✓</span>Injectors tab — team cards &amp; MTD stats</li>
+            <li><span class="f-mark" style="background:#4A6F9610;color:#4A6F96;">✓</span>Per-injector PIN sign-out</li>
+            <li><span class="f-mark" style="background:#4A6F9610;color:#4A6F96;">✓</span>Lot-to-patient audit trail</li>
+            <li><span class="f-mark" style="background:#4A6F9610;color:#4A6F96;">✓</span>Usage analytics by treatment</li>
+          </ul>
+        </div>
+
+        <!-- Atelier -->
+        <div class="plan-card atelier reveal reveal-delay-2">
+          <div class="plan-bar" style="background:#B8965A;"></div>
+          <div class="plan-tier" style="color:#B8965A;">Atelier</div>
+          <div class="plan-name" style="color:#B8965A;">With Luma AI.</div>
+          <div class="plan-price-block">
+            <span class="plan-price" style="color:#B8965A;">$999</span>
+            <span class="plan-mo">/mo</span>
+          </div>
+          <div class="plan-setup">+ $3,499 setup, one time</div>
+          <div class="plan-divider" style="background:rgba(184,150,90,0.1);"></div>
+          <ul class="plan-features">
+            <li><span class="f-mark" style="background:#B8965A10;color:#B8965A;">✓</span>Everything in Studio</li>
+            <li><span class="f-mark" style="background:#B8965A10;color:#B8965A;">✓</span>Luma AI — ask anything about inventory</li>
+            <li><span class="f-mark" style="background:#B8965A10;color:#B8965A;">✓</span>Priority onboarding &amp; support</li>
+            <li><span class="f-mark" style="background:#B8965A10;color:#B8965A;">✓</span>PDF audit export</li>
+            <li><span class="f-mark" style="background:#B8965A10;color:#B8965A;">✓</span>Unit-per-treatment learning</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Access -->
+  <section class="access-section" id="access">
+    <div class="access-inner">
+      <div class="access-left reveal">
+        <div class="eyebrow">Access is by invitation</div>
+        <h2>See if it's<br>a fit<span class="period">.</span></h2>
+      </div>
+      <div class="access-right reveal reveal-delay-1">
+        <p>We onboard practices individually. Leave your email and we'll reach out if Lumetra makes sense for your practice. No pitch. No automated sequence.</p>
+        <form
+          class="access-form"
+          id="accessForm"
+          action="https://formsubmit.co/hello@luminehq.com"
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="New access request — luminehq.com" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://luminehq.com?submitted=true" />
+          <div class="access-input-row">
+            <input
+              class="access-input"
+              type="email"
+              name="email"
+              placeholder="your@practice.com"
+              autocomplete="email"
+              required
+            />
+            <button class="access-btn" type="submit">Request access</button>
+          </div>
+          <span class="access-note">Just a real conversation.</span>
+        </form>
+        <p id="successMsg" class="access-success">✦ We received your request. If it's a fit, you'll hear from us.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer-wrap">
+    <footer>
+      <a href="/" class="wordmark">Lumetra<span class="dot">.</span></a>
+      <div class="footer-links">
+        <a href="mailto:hello@luminehq.com">hello@luminehq.com</a>
+        <a href="https://app.luminehq.com">Log in</a>
+      </div>
+      <span class="footer-copy">© 2026 Lumetra.</span>
+    </footer>
+  </div>
+
   <script>
-    const { createClient } = supabase
-    const db = createClient(
-      'https://aoblhegfxzxcluzmpxhb.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYmxoZWdmeHp4Y2x1em1weGhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3MzgsImV4cCI6MjA4ODIyNzczOH0.L_KFazTSAoZf106in8CyRBfynuwoEKLfCpXaDhO-yw0'
-    )
+    // Nav scroll style
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40)
+    }, { passive: true })
 
-    async function handleSubmit() {
-      const name  = document.getElementById('name').value.trim()
-      const email = document.getElementById('email').value.trim()
-      const spa   = document.getElementById('spa').value.trim()
-      if (!name || !email || !spa) { alert('Please fill in all fields.'); return }
-      const btn = document.querySelector('.form-btn')
-      btn.textContent = 'submitting…'
-      btn.disabled = true
-      const { error } = await db.from('waitlist').insert({ name, email, spa_name: spa })
-      if (error) {
-        if (error.code === '23505') {
-          document.getElementById('form-wrap').style.display = 'none'
-          document.getElementById('success').classList.add('show')
-          document.querySelector('.success-text').textContent = "You're already on the list."
-        } else {
-          btn.textContent = 'request an invite →'
-          btn.disabled = false
-          alert('Something went wrong. Please try again.')
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible')
+          observer.unobserve(e.target)
         }
-        return
-      }
-      document.getElementById('form-wrap').style.display = 'none'
-      document.getElementById('success').classList.add('show')
-    }
+      })
+    }, { threshold: 0.12 })
 
-    function calcROI() {
-      const products  = parseInt(document.getElementById('s-products').value)
-      const cost      = parseInt(document.getElementById('s-cost').value)
-      const stockouts = parseInt(document.getElementById('s-stockouts').value)
-      const hours     = parseInt(document.getElementById('s-hours').value)
-      const rate      = parseInt(document.getElementById('s-rate').value)
-      document.getElementById('v-products').textContent  = products
-      document.getElementById('v-cost').textContent      = '$' + cost.toLocaleString()
-      document.getElementById('v-stockouts').textContent = stockouts
-      document.getElementById('v-hours').textContent     = hours + ' hrs'
-      document.getElementById('v-rate').textContent      = '$' + rate
-      const stockoutLoss = stockouts * cost * 12
-      const timeLoss     = hours * rate * 52
-      const lumetraCost  = 99 * 12
-      const totalLoss    = stockoutLoss + timeLoss
-      const netSavings   = totalLoss - lumetraCost
-      document.getElementById('roi-num').textContent     = totalLoss.toLocaleString()
-      document.getElementById('rb-stockout').textContent = '$' + stockoutLoss.toLocaleString()
-      document.getElementById('rb-time').textContent     = '$' + timeLoss.toLocaleString()
-      document.getElementById('rb-net').textContent      = '$' + Math.max(0, netSavings).toLocaleString()
-    }
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 
-    calcROI()
+    // FormSubmit success
+    if (new URLSearchParams(window.location.search).get('submitted') === 'true') {
+      const form = document.getElementById('accessForm')
+      const msg  = document.getElementById('successMsg')
+      if (form) form.style.display = 'none'
+      if (msg)  msg.style.display  = 'block'
+      window.history.replaceState({}, '', window.location.pathname)
+    }
   </script>
+
 </body>
 </html>
