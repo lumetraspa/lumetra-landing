@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lumetra. — Automated inventory for medspas.</title>
-  <meta name="description" content="Lumetra tracks your medspa's stock levels, expiration dates, and reorder alerts automatically. Nothing expires. Nothing runs out." />
-  <meta property="og:title" content="Lumetra. — Automated inventory for medspas." />
-  <meta property="og:description" content="Stock levels, expiration dates, reorder alerts — handled automatically." />
+  <title>Lumetra. — Inventory loss prevention for medspas.</title>
+  <meta name="description" content="Expired product, unlogged usage, short shipments that never get flagged. That gap is your margin. Lumetra closes it automatically." />
+  <meta property="og:title" content="Lumetra. — Inventory loss prevention for medspas." />
+  <meta property="og:description" content="Most practices can't account for everything they ordered. Lumetra closes that gap automatically." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -74,7 +74,7 @@
       text-decoration: none;
       padding: 8px 20px;
       border: 1px solid #EDECEA;
-      border-radius: 8px;
+      border-radius: 0;
       background: #fff;
       transition: border-color 0.2s, background 0.2s;
       letter-spacing: 0.01em;
@@ -156,17 +156,18 @@
     .btn-ink {
       display: inline-block;
       padding: 15px 32px;
-      background: #0E0E0D;
-      color: #fff;
+      background: transparent;
+      color: #0E0E0D;
       font-size: 0.8rem;
       font-weight: 500;
       text-decoration: none;
-      border-radius: 8px;
+      border: 1px solid #0E0E0D;
+      border-radius: 0;
       letter-spacing: 0.04em;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.2s;
       white-space: nowrap;
     }
-    .btn-ink:hover { background: #2A2A28; }
+    .btn-ink:hover { background: #0E0E0D; color: #fff; }
 
     .hero-hint {
       font-size: 0.68rem;
@@ -589,7 +590,7 @@
       flex: 1;
       padding: 14px 18px;
       border: 1px solid #EDECEA;
-      border-radius: 8px;
+      border-radius: 0;
       font-size: 0.86rem;
       font-family: inherit;
       color: #0E0E0D;
@@ -605,19 +606,19 @@
 
     .access-btn {
       padding: 14px 26px;
-      background: #0E0E0D;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      background: transparent;
+      color: #0E0E0D;
+      border: 1px solid #0E0E0D;
+      border-radius: 0;
       font-size: 0.8rem;
       font-weight: 500;
       font-family: inherit;
       cursor: pointer;
       letter-spacing: 0.03em;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.2s;
       white-space: nowrap;
     }
-    .access-btn:hover { background: #2A2A28; }
+    .access-btn:hover { background: #0E0E0D; color: #fff; }
 
     .access-note {
       font-size: 0.68rem;
@@ -726,13 +727,13 @@
         <span class="hero-tag-text">Automated medspa inventory</span>
       </div>
       <h1>
-        Inventory,<br>made calm<span class="period">.</span>
+        You ordered it<span class="period">.</span><br>Where did it go<span class="period">.</span>
       </h1>
       <div class="hero-bottom">
         <p class="hero-sub">
-          Stock levels, expiration dates, reorder alerts —
-          handled automatically. Nothing expires.
-          Nothing runs out. You just treat patients.
+          Expired product, unlogged usage, and short shipments
+          most practices never catch. That gap is your margin.
+          Lumetra closes it automatically.
         </p>
         <div class="hero-actions">
           <a href="#access" class="btn-ink">Request access →</a>
@@ -770,14 +771,14 @@
     <div class="dark-inner">
       <div class="dark-label reveal">The problem</div>
       <h2 class="dark-headline reveal">
-        Medspa inventory fails<br>
+        Medspa inventory loses money<br>
         <em>the same way</em> every time<span class="period">.</span>
       </h2>
       <div class="dark-cols">
         <div class="dark-col reveal">
           <div class="dark-col-num">0<span class="accent">.</span></div>
           <div class="dark-col-label">Stockouts</div>
-          <p>When thresholds are set, Lumetra catches shortages before they happen — not the moment a patient needs a product.</p>
+          <p>Expired product, unlogged units, short shipments that never got flagged. Lumetra catches the gap before it becomes a write-off.</p>
         </div>
         <div class="dark-col reveal reveal-delay-1">
           <div class="dark-col-num">100<span class="accent">%</span></div>
